@@ -1,47 +1,21 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ISAAC AI</title><link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="grid"></div>
-<main id="login" class="login">
-  <div class="card">
-    <div class="logo">🤖</div>
-    <h1>ISAAC <span>AI</span></h1>
-    <p>Seu companheiro IA. <b>Sempre com você.</b></p>
-    <form id="loginForm">
-      <div class="pass"><span>🔒</span><input id="password" type="password" placeholder="Digite sua senha" required><button type="button" id="show">◉</button></div>
-      <button class="enter">ENTRAR</button>
-      <div id="error"></div>
-    </form>
-    <small>🛡️ Acesso restrito. Apenas para usuários autorizados.</small>
-  </div>
-</main>
+loginForm.addEventListener("submit", (event) => {
+      event.preventDefault();
 
-<main id="app" class="app hidden">
-  <aside>
-    <div class="brand">ISAAC <span>AI</span></div>
-    <button class="nav active">💬 Chat</button><button class="nav">🧠 Criar IA</button>
-    <button class="nav">🎮 Criar Jogo</button><button class="nav">🔎 Explorar</button>
-    <button class="nav">🛠️ Ferramentas</button><button class="nav">⚙️ Configurações</button>
-    <div class="mini">😎 <b>ZAK</b><small>Modo irônico: ON</small></div>
-  </aside>
-  <section class="content">
-    <header><div><h2>Salve! 😎</h2><p>Pronto pra criar, jogar e conversar?</p></div><i>● Online</i></header>
-    <section class="hero"><div class="zak">😎</div><div><strong>ZAK</strong><p>Fala aí, chefe. O que vamos aprontar hoje?</p></div></section>
-    <div class="quick">
-      <button data-p="Bora conversar 😎">💬 <b>Conversar</b><small>Bate um papo comigo</small></button>
-      <button data-p="Quero criar uma IA.">🤖 <b>Criar IA</b><small>Crie uma IA do seu jeito</small></button>
-      <button data-p="Quero criar um jogo.">🎮 <b>Criar Jogo</b><small>Transforme uma ideia em jogo</small></button>
-      <button data-p="Quais ferramentas você tem?">🛠️ <b>Ferramentas</b><small>Coisas úteis pra você</small></button>
-    </div>
-    <section class="chat"><div id="messages"><div class="msg">ZAK: Finalmente! Achei que você tinha me esquecido 😂. Manda a missão.</div></div>
-      <form id="chat"><input id="input" placeholder="Digite sua mensagem..."><button>➤</button></form>
-    </section>
-    <footer>ZAK pode ser irônico às vezes, mas sempre respeita limites de segurança.</footer>
-  </section>
-</main>
-<script src="app.js"></script>
-</body></html>
+      const senha = password.value;
+
+      /*
+       * A senha não fica escrita aqui.
+       * Vamos configurar a autenticação corretamente
+       * depois para não deixar a senha exposta no GitHub.
+       */
+
+      if (senha.length === 0) {
+        error.textContent = "Digite sua senha.";
+        return;
+      }
+
+      error.textContent = "Sistema de login ainda não configurado.";
+    });
+  </script>
+</body>
+</html>
