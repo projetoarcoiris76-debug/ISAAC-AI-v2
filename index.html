@@ -1,21 +1,65 @@
-loginForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISAAC AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-      const senha = password.value;
+<body>
 
-      /*
-       * A senha não fica escrita aqui.
-       * Vamos configurar a autenticação corretamente
-       * depois para não deixar a senha exposta no GitHub.
-       */
+  <div class="grid">
+    <main class="login">
+      <div class="card">
 
-      if (senha.length === 0) {
-        error.textContent = "Digite sua senha.";
-        return;
-      }
+        <div class="logo">🤖</div>
 
-      error.textContent = "Sistema de login ainda não configurado.";
-    });
-  </script>
+        <h1>ISAAC <span>AI</span></h1>
+
+        <p>
+          Seu companheiro IA.
+          <strong>Sempre com você.</strong>
+        </p>
+
+        <form id="loginForm">
+
+          <div class="password-box">
+            <span>🔒</span>
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Digite sua senha"
+              required
+            >
+
+            <button
+              type="button"
+              id="showPassword"
+              aria-label="Mostrar senha"
+            >
+              ◉
+            </button>
+          </div>
+
+          <button class="enter" type="submit">
+            ENTRAR
+          </button>
+
+          <div id="error"></div>
+
+        </form>
+
+        <div class="security">
+          🛡️ Acesso restrito. Apenas para usuários autorizados.
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+
 </body>
 </html>
