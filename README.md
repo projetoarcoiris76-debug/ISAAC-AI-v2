@@ -1,4 +1,4 @@
-# ISAAC AI
+# GAMERULTRA AI
 
 Site com entrada protegida por senha e painel do ZAK.
 
