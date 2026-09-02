@@ -23,7 +23,7 @@ loginForm.addEventListener("submit", (event) => {
     Coloque aqui a senha que você escolheu.
     Esta versão é apenas para o protótipo do GitHub Pages.
   */
- const SENHA_CORRETA = "KINGGAMER13";
+ const SENHA_CORRETA = "NEWULTRA13";
 
   if (senha === SENHA_CORRETA) {
     error.textContent = "";
