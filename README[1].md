@@ -1,6 +1,6 @@
-# ISAAC AI
+# GAMERULTRA AI
 
-Tela inicial: ISAAC AI.
+Tela inicial: GAMER AI.
 Após login, a IA se chama ZAK.
 
 Execute com Node.js:
