@@ -1,99 +1,110 @@
-/* ==========================================
-   GAMERULTRA AI — NOVO STYLE
-   ========================================== */
+/* =========================================================
+   GAMERULTRA AI - ZAK
+   STYLE.CSS
+   ========================================================= */
+
+
+/* =========================
+   CONFIGURAÇÕES GERAIS
+   ========================= */
 
 :root {
-  --bg: #070b18;
-  --bg2: #101936;
-  --panel: #182342;
-  --panel-light: #202d50;
-  --border: #4b5b88;
+  --bg: #050714;
+  --panel: #0d1428;
+  --panel-2: #121c35;
+  --panel-3: #182544;
 
-  --white: #ffffff;
-  --text: #e9edff;
-  --muted: #aeb8d5;
+  --text: #f5f7ff;
+  --muted: #aab4cf;
 
-  --cyan: #19dfff;
-  --purple: #a936ff;
-  --green: #32e98b;
-  --red: #ff6685;
+  --cyan: #16d9ff;
+  --purple: #a82dff;
+  --green: #32e875;
+  --red: #ff4f70;
+
+  --border: #29385e;
+  --radius: 20px;
 }
-
-/* ==========================================
-   BASE
-   ========================================== */
 
 * {
   box-sizing: border-box;
-}
-
-html,
-body {
   margin: 0;
   padding: 0;
-  width: 100%;
+}
+
+html {
   min-height: 100%;
+  background: var(--bg);
 }
 
 body {
   min-height: 100vh;
 
-  color: var(--text);
-
   font-family:
-    "Segoe UI",
     Arial,
+    Helvetica,
     sans-serif;
+
+  color: var(--text);
 
   background:
     radial-gradient(
-      circle at 50% 0%,
-      #30206b 0%,
-      #111936 35%,
-      #070b18 75%
-    );
+      circle at top left,
+      rgba(22, 217, 255, 0.10),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(168, 45, 255, 0.10),
+      transparent 35%
+    ),
+    var(--bg);
+
+  overflow-x: hidden;
 }
 
-/* ==========================================
-   GRADE DO FUNDO
-   ========================================== */
+
+/* =========================
+   FUNDO
+   ========================= */
 
 .grid {
   position: fixed;
-
   inset: 0;
 
   z-index: 0;
 
-  opacity: 0.10;
-
   pointer-events: none;
+
+  opacity: 0.12;
 
   background-image:
     linear-gradient(
-      rgba(255,255,255,0.5) 1px,
+      rgba(255, 255, 255, 0.06) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(255,255,255,0.5) 1px,
+      rgba(255, 255, 255, 0.06) 1px,
       transparent 1px
     );
 
-  background-size: 50px 50px;
+  background-size: 40px 40px;
 }
 
-/* ==========================================
-   ESCONDER
-   ========================================== */
+
+/* =========================
+   CLASSE OCULTA
+   ========================= */
 
 .hidden {
   display: none !important;
 }
 
-/* ==========================================
+
+/* =========================
    LOGIN
-   ========================================== */
+   ========================= */
 
 .login {
   position: relative;
@@ -102,730 +113,886 @@ body {
 
   min-height: 100vh;
 
-  display: grid;
+  display: flex;
 
-  place-items: center;
+  align-items: center;
+
+  justify-content: center;
 
   padding: 25px;
 }
 
-/* ==========================================
-   CARTÃO DE ENTRADA
-   ========================================== */
+
+/* =========================
+   CARTÃO DE LOGIN
+   ========================= */
 
 .card {
   position: relative;
 
   z-index: 20;
 
-  width: min(520px, 100%);
+  width: min(500px, 100%);
 
   padding: 45px;
 
-  border-radius: 26px;
+  border: 1px solid #46527a;
 
-  border: 1px solid #6678a8;
+  border-radius: 25px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(32,45,80,0.98),
-      rgba(17,27,53,0.98)
+      rgba(24, 36, 66, 0.98),
+      rgba(13, 20, 40, 0.98)
     );
 
   text-align: center;
 
   box-shadow:
-    0 30px 90px rgba(0,0,0,0.60),
-    0 0 40px rgba(169,54,255,0.12);
+    0 25px 80px rgba(0, 0, 0, 0.55);
+
+  backdrop-filter: blur(15px);
 }
 
-/* ==========================================
+
+/* =========================
    LOGO
-   ========================================== */
+   ========================= */
 
 .logo {
-  font-size: 70px;
+  width: 90px;
+  height: 90px;
 
-  margin-bottom: 5px;
+  margin: 0 auto 20px;
 
-  filter:
-    drop-shadow(0 0 15px rgba(25,223,255,0.4));
-}
-
-.card h1 {
-  margin: 5px 0;
-
-  font-size: 42px;
-
-  color: var(--white);
-}
-
-.card h1 span {
-  color: var(--purple);
-}
-
-.card p {
-  color: var(--muted);
-
-  font-size: 16px;
-}
-
-.card p b {
-  color: var(--cyan);
-}
-
-/* ==========================================
-   SENHA
-   ========================================== */
-
-.pass,
-.password-box {
   display: flex;
 
   align-items: center;
+  justify-content: center;
 
-  gap: 8px;
+  border-radius: 50%;
 
-  margin: 28px 0 15px;
+  font-size: 45px;
 
-  padding: 5px 12px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(22, 217, 255, 0.20),
+      rgba(168, 45, 255, 0.20)
+    );
 
-  border-radius: 13px;
-
-  background: #202d50;
-
-  border: 1px solid #62739f;
+  border: 1px solid var(--cyan);
 
   box-shadow:
-    inset 0 0 15px rgba(0,0,0,0.18);
+    0 0 30px rgba(22, 217, 255, 0.25);
 }
 
-.pass input,
-.password-box input {
-  flex: 1;
 
-  min-width: 0;
+/* =========================
+   TÍTULOS
+   ========================= */
 
-  padding: 15px;
+.card h1 {
+  font-size: 34px;
 
-  border: 0;
+  margin-bottom: 10px;
 
-  outline: 0;
-
-  background: transparent;
-
-  color: white;
-
-  font-size: 16px;
-}
-
-.pass input::placeholder,
-.password-box input::placeholder {
-  color: #aeb8d5;
-}
-
-.pass button,
-.password-box button {
-  border: 0;
-
-  background: transparent;
-
-  color: #dce3ff;
-
-  font-size: 18px;
-
-  padding: 10px;
-
-  cursor: pointer;
-}
-
-/* ==========================================
-   BOTÃO ENTRAR
-   ========================================== */
-
-.enter {
-  position: relative;
-
-  z-index: 30;
-
-  width: 100%;
-
-  padding: 16px;
-
-  border: 0;
-
-  border-radius: 13px;
+  letter-spacing: 1px;
 
   background:
     linear-gradient(
       90deg,
       var(--cyan),
+      #ffffff,
       var(--purple)
     );
 
-  color: white;
+  -webkit-background-clip: text;
+  background-clip: text;
 
-  font-size: 17px;
-
-  font-weight: 900;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 10px 30px rgba(25,223,255,0.15);
+  color: transparent;
 }
 
-.enter:hover {
-  transform: translateY(-2px);
-
-  filter: brightness(1.08);
-}
-
-/* ==========================================
-   ERRO
-   ========================================== */
-
-#error {
-  min-height: 22px;
-
-  margin-top: 10px;
-
-  color: var(--red);
-
-  font-weight: 600;
-}
-
-.card small {
-  display: block;
-
-  margin-top: 25px;
-
-  color: #8995b5;
-}
-
-/* ==========================================
-   APP / PAINEL
-   ========================================== */
-
-#app {
-  position: relative;
-
-  z-index: 10;
-
-  min-height: 100vh;
-
-  pointer-events: auto;
-}
-
-#app * {
-  pointer-events: auto;
-}
-
-.app {
-  position: relative;
-
-  z-index: 10;
-
-  min-height: 100vh;
-
-  display: flex;
-}
-
-/* ==========================================
-   MENU
-   ========================================== */
-
-.app aside {
-  position: relative;
-
-  z-index: 20;
-
-  width: 240px;
-
-  min-height: 100vh;
-
-  padding: 25px 15px;
-
-  background: rgba(8,13,30,0.96);
-
-  border-right: 1px solid #303e65;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 8px;
-}
-
-.brand {
-  margin: 0 10px 22px;
-
-  font-size: 25px;
-
-  font-weight: 900;
-
-  color: white;
-}
-
-.brand span {
-  color: var(--purple);
-}
-
-/* ==========================================
-   BOTÕES DO MENU
-   ========================================== */
-
-.nav {
-  position: relative;
-
-  z-index: 30;
-
-  width: 100%;
-
-  padding: 14px;
-
-  border: 1px solid transparent;
-
-  border-radius: 11px;
-
-  background: transparent;
-
-  color: #b8c1dc;
-
-  text-align: left;
-
-  font-size: 15px;
-
-  cursor: pointer;
-}
-
-.nav:hover,
-.nav.active {
-  background: #1a2545;
-
-  border-color: #34456f;
-
-  color: white;
-}
-
-.mini {
-  margin-top: auto;
-
-  padding: 13px;
-
-  border: 1px solid #34456f;
-
-  border-radius: 13px;
-
-  background: #101a34;
-}
-
-.mini small {
-  display: block;
-
-  margin-left: 34px;
-
-  color: var(--green);
-}
-
-/* ==========================================
-   CONTEÚDO
-   ========================================== */
-
-.content {
-  position: relative;
-
-  z-index: 20;
-
-  flex: 1;
-
-  width: 100%;
-
-  max-width: 1250px;
-
-  margin: auto;
-
-  padding: 30px 45px;
-}
-
-.content header {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-}
-
-.content header h2 {
-  margin: 0;
-
-  color: white;
-}
-
-.content header p {
-  margin: 5px 0;
-
+.subtitle {
   color: var(--muted);
+
+  margin-bottom: 30px;
+
+  font-size: 16px;
 }
 
-.content header i {
-  color: var(--green);
-}
 
-/* ==========================================
-   HERO ZAK
-   ========================================== */
+/* =========================
+   SENHA
+   ========================= */
 
-.hero {
-  position: relative;
-
-  z-index: 20;
-
+.password-box {
   display: flex;
 
   align-items: center;
 
-  gap: 25px;
+  width: 100%;
 
-  min-height: 210px;
+  margin-bottom: 15px;
 
-  margin: 20px 0;
+  background: #202d50;
 
-  padding: 30px;
+  border: 1px solid #65729b;
 
-  border: 1px solid #5a3680;
+  border-radius: 14px;
 
-  border-radius: 22px;
-
-  background:
-    radial-gradient(
-      circle at 75% 30%,
-      #4b1970,
-      #141b38 65%
-    );
-
-  box-shadow:
-    0 20px 50px rgba(0,0,0,0.25);
+  overflow: hidden;
 }
 
-.zak {
-  font-size: 105px;
-}
-
-.hero strong {
-  font-size: 58px;
-
-  color: #c15aff;
-}
-
-.hero p {
-  display: inline-block;
-
-  padding: 14px;
-
-  border-radius: 12px;
-
-  border: 1px solid #914dca;
-
-  background: rgba(0,0,0,0.12);
-}
-
-/* ==========================================
-   BOTÕES RÁPIDOS
-   ========================================== */
-
-.quick {
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap: 12px;
-}
-
-.quick button {
-  position: relative;
-
-  z-index: 30;
-
-  min-height: 100px;
-
-  padding: 16px;
-
-  border: 1px solid #34456f;
-
-  border-radius: 15px;
-
-  background: #121c37;
-
-  color: white;
-
-  text-align: left;
-
-  cursor: pointer;
-}
-
-.quick button:hover {
-  background: #1b284b;
-
-  border-color: #596d9f;
-
-  transform: translateY(-2px);
-}
-
-.quick b,
-.quick small {
-  display: block;
-}
-
-.quick small {
-  margin-top: 6px;
-
-  color: #9ba7c5;
-}
-
-/* ==========================================
-   CHAT
-   ========================================== */
-
-.chat {
-  position: relative;
-
-  z-index: 30;
-
-  display: flex;
-
-  flex-direction: column;
-
-  min-height: 320px;
-
-  margin-top: 18px;
-
-  padding: 16px;
-
-  border-radius: 20px;
-
-  border: 1px solid #34456f;
-
-  background: #0d152b;
-
-  box-shadow:
-    0 15px 45px rgba(0,0,0,0.25);
-}
-
-/* ==========================================
-   MENSAGENS
-   ========================================== */
-
-.chat #messages {
-  flex: 1;
-
-  min-height: 210px;
-
-  overflow-y: auto;
-
-  padding-right: 5px;
-}
-
-.msg {
-  width: fit-content;
-
-  max-width: 85%;
-
-  margin: 8px 0;
-
-  padding: 12px 15px;
-
-  border-radius: 13px;
-
-  background: #1a2545;
-
-  color: white;
-
-  line-height: 1.4;
-}
-
-.msg.user {
-  margin-left: auto;
-
-  background: #452268;
-}
-
-/* ==========================================
-   CAIXA DE MENSAGEM
-   ========================================== */
-
-.chat form {
-  position: relative;
-
-  z-index: 40;
-
-  display: flex;
-
-  gap: 10px;
-
-  margin-top: 12px;
-}
-
-.chat input {
-  position: relative;
-
-  z-index: 50;
-
+.password-box input {
   flex: 1;
 
   min-width: 0;
 
-  padding: 15px;
+  padding: 17px;
 
-  border: 1px solid #465a8a;
-
-  border-radius: 12px;
+  border: none;
 
   outline: none;
 
-  background: #172342;
-
   color: white;
 
-  font-size: 15px;
+  background: transparent;
 
-  cursor: text;
-
-  pointer-events: auto;
+  font-size: 16px;
 }
 
-.chat input::placeholder {
-  color: #9ca8c6;
+.password-box input::placeholder {
+  color: #aeb8d0;
 }
 
-.chat input:focus {
-  border-color: var(--cyan);
+.password-box button {
+  width: 55px;
 
-  box-shadow:
-    0 0 0 2px rgba(25,223,255,0.15);
-}
+  height: 55px;
 
-/* ==========================================
-   BOTÃO ENVIAR
-   ========================================== */
+  border: none;
 
-.chat button {
-  position: relative;
-
-  z-index: 50;
-
-  width: 58px;
-
-  border: 0;
-
-  border-radius: 12px;
-
-  background: linear-gradient(
-    135deg,
-    var(--purple),
-    #7e28d7
-  );
+  background: transparent;
 
   color: white;
-
-  font-size: 20px;
 
   cursor: pointer;
 
-  pointer-events: auto;
+  font-size: 20px;
 }
 
-.chat button:hover {
-  filter: brightness(1.15);
-
-  transform: translateY(-1px);
+.password-box button:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* ==========================================
-   RODAPÉ
-   ========================================== */
 
-footer {
+/* =========================
+   BOTÃO LOGIN
+   ========================= */
+
+.login-button {
+  width: 100%;
+
+  padding: 16px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  background:
+    linear-gradient(
+      90deg,
+      #087f9c,
+      #6930a8
+    );
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 30px rgba(22, 217, 255, 0.20);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================
+   ERRO
+   ========================= */
+
+#error {
+  min-height: 22px;
+
   margin-top: 15px;
 
-  text-align: center;
+  color: var(--red);
 
-  color: #737f9f;
+  font-size: 14px;
+}
+
+
+/* =========================
+   APLICAÇÃO
+   ========================= */
+
+.app {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(1100px, 100%);
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  padding: 25px;
+}
+
+
+/* =========================
+   CABEÇALHO
+   ========================= */
+
+.app-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 20px;
+
+  margin-bottom: 20px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  background: rgba(13, 20, 40, 0.94);
+
+  backdrop-filter: blur(15px);
+}
+
+.zak-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+.zak-avatar {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  font-size: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(22, 217, 255, 0.18),
+      rgba(168, 45, 255, 0.18)
+    );
+
+  border: 1px solid var(--cyan);
+}
+
+.zak-info h1 {
+  font-size: 25px;
+}
+
+.zak-info p {
+  margin-top: 4px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+.online-dot {
+  display: inline-block;
+
+  width: 8px;
+  height: 8px;
+
+  margin-right: 5px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 10px var(--green);
+}
+
+.creator-info {
+  color: #d7dcf0;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   BANNER DO ZAK
+   ========================= */
+
+.zak-banner {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 25px;
+
+  margin-bottom: 20px;
+
+  border-radius: var(--radius);
+
+  border: 1px solid #31446f;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(22, 217, 255, 0.08),
+      rgba(168, 45, 255, 0.08)
+    );
+}
+
+.zak-banner h2 {
+  margin-bottom: 8px;
+
+  font-size: 22px;
+}
+
+.zak-banner p {
+  max-width: 700px;
+
+  color: var(--muted);
+
+  line-height: 1.5;
+}
+
+.zak-status {
+  padding: 10px 15px;
+
+  border-radius: 999px;
+
+  border: 1px solid var(--cyan);
+
+  color: var(--cyan);
+
+  white-space: nowrap;
+}
+
+
+/* =========================
+   CHAT
+   ========================= */
+
+.chat-container {
+  position: relative;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  overflow: hidden;
+
+  background: rgba(9, 15, 31, 0.96);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.30);
+}
+
+
+/* =========================
+   MENSAGENS
+   ========================= */
+
+.messages {
+  min-height: 450px;
+
+  max-height: 600px;
+
+  overflow-y: auto;
+
+  padding: 25px;
+}
+
+
+/* Barra de rolagem */
+
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: #090f1f;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: #33446d;
+
+  border-radius: 10px;
+}
+
+
+/* =========================
+   MENSAGEM
+   ========================= */
+
+.message {
+  display: flex;
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+
+  animation:
+    messageAppear 0.25s ease;
+}
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.message-avatar {
+  flex-shrink: 0;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: var(--panel-3);
+
+  font-size: 21px;
+}
+
+.message-content {
+  max-width: 80%;
+
+  padding: 13px 16px;
+
+  border-radius: 16px;
+
+  background: var(--panel-2);
+
+  border: 1px solid var(--border);
+}
+
+.message-content strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: var(--cyan);
+
+  font-size: 13px;
+}
+
+.message-content p {
+  line-height: 1.55;
+
+  white-space: pre-wrap;
+
+  word-break: break-word;
+}
+
+
+/* =========================
+   MENSAGEM DO USUÁRIO
+   ========================= */
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.user-message .message-avatar {
+  order: 2;
+
+  background: #26314f;
+}
+
+.user-message .message-content {
+  order: 1;
+
+  background:
+    linear-gradient(
+      135deg,
+      #172947,
+      #20234a
+    );
+}
+
+.user-message .message-content strong {
+  color: #c9b2ff;
+}
+
+
+/* =========================
+   ZAK DIGITANDO
+   ========================= */
+
+.typing {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 0 25px 15px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+.typing span {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--cyan);
+
+  animation:
+    typingAnimation 1s infinite;
+}
+
+.typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing span:nth-child(3) {
+  animation-delay: 0.30s;
+}
+
+@keyframes typingAnimation {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+
+    opacity: 0.4;
+  }
+
+  30% {
+    transform: translateY(-5px);
+
+    opacity: 1;
+  }
+}
+
+
+/* =========================
+   FORMULÁRIO DO CHAT
+   ========================= */
+
+.chat-form {
+  padding: 18px;
+
+  border-top: 1px solid var(--border);
+
+  background: #0d152a;
+}
+
+.input-area {
+  display: flex;
+
+  gap: 10px;
+}
+
+.input-area input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 16px;
+
+  border-radius: 14px;
+
+  border: 1px solid #35466f;
+
+  outline: none;
+
+  background: #182544;
+
+  color: white;
+
+  font-size: 16px;
+}
+
+.input-area input::placeholder {
+  color: #9ba8c5;
+}
+
+.input-area input:focus {
+  border-color: var(--cyan);
+
+  box-shadow:
+    0 0 0 3px rgba(22, 217, 255, 0.08);
+}
+
+#sendButton {
+  width: 55px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  color: white;
+
+  font-size: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #087f9c,
+      #6930a8
+    );
+
+  transition:
+    transform 0.2s;
+}
+
+#sendButton:hover {
+  transform: scale(1.05);
+}
+
+
+/* =========================
+   FERRAMENTAS
+   ========================= */
+
+.chat-tools {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+.tool-button {
+  padding: 8px 12px;
+
+  border: 1px solid #344566;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  color: #bdc7df;
+
+  background: #121d36;
 
   font-size: 12px;
 }
 
-/* ==========================================
-   GARANTIR CLIQUES
-   ========================================== */
+.tool-button:hover {
+  color: white;
 
-button,
-input,
-textarea,
-select,
-a {
-  pointer-events: auto;
+  border-color: var(--cyan);
 }
 
-button {
+
+/* =========================
+   MODOS
+   ========================= */
+
+.modes {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.mode-button {
+  flex: 1;
+
+  min-width: 150px;
+
+  padding: 13px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
   cursor: pointer;
+
+  color: #dce2f5;
+
+  background: #101a31;
+
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
 
-input,
-textarea {
-  cursor: text;
+.mode-button:hover {
+  background: #182544;
+
+  transform: translateY(-2px);
 }
 
-/* ==========================================
-   RESPONSIVO
-   ========================================== */
+.mode-button.active {
+  border-color: var(--cyan);
 
-@media (max-width: 800px) {
+  color: var(--cyan);
 
-  .app aside {
-    display: none;
-  }
-
-  .content {
-    padding: 20px;
-  }
-
-  .quick {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .hero {
-    flex-direction: column;
-
-    text-align: center;
-  }
-
-  .hero strong {
-    font-size: 42px;
-  }
+  background:
+    rgba(22, 217, 255, 0.08);
 }
 
-@media (max-width: 500px) {
 
-  .card {
-    padding: 28px 20px;
-  }
+/* =========================
+   RODAPÉ
+   ========================= */
 
-  .card h1 {
-    font-size: 32px;
-  }
+.app-footer {
+  display: flex;
 
-  .quick {
-    grid-template-columns: 1fr;
-  }
+  justify-content: space-between;
 
-  .content {
+  gap: 15px;
+
+  padding: 20px 5px;
+
+  color: #7784a3;
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+   ========================= */
+
+@media (max-width: 700px) {
+
+  .login {
     padding: 15px;
   }
 
-  .chat form {
-    gap: 6px;
+  .card {
+    padding: 30px 20px;
   }
+
+  .card h1 {
+    font-size: 27px;
+  }
+
+  .app {
+    padding: 12px;
+  }
+
+  .app-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .creator-info {
+    width: 100%;
+  }
+
+  .zak-banner {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .messages {
+    min-height: 400px;
+
+    padding: 15px;
+  }
+
+  .message-content {
+    max-width: 88%;
+  }
+
+  .input-area input {
+    font-size: 14px;
+  }
+
+  .app-footer {
+    flex-direction: column;
+  }
+
+}
+
+
+/* =========================
+   ACESSIBILIDADE
+   ========================= */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--cyan);
+
+  outline-offset: 2px;
+}
+
+
+/* =========================
+   SELEÇÃO DE TEXTO
+   ========================= */
+
+::selection {
+  background: rgba(22, 217, 255, 0.25);
+
+  color: white;
 }
