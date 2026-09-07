@@ -1,379 +1,659 @@
-// =====================================================
-// 🤖 ZAK - ISAAC AI
-// =====================================================
+/* =========================================================
+   GAMERULTRA AI - ZAK
+   APP.JS
+   ========================================================= */
 
-// -------------------------
-// LOGIN
-// -------------------------
+
+/* =========================================================
+   CONFIGURAÇÕES
+   ========================================================= */
+
+const API_URL = "/api/chat";
+
+const SENHA_CORRETA = "SUA_SENHA_AQUI";
+
+let historico = [];
+
+let modoAtual = "normal";
+
+let pesquisaWebAtiva = false;
+
+let enviando = false;
+
+
+/* =========================================================
+   ELEMENTOS DA PÁGINA
+   ========================================================= */
+
+const login = document.getElementById("login");
+const app = document.getElementById("app");
+
+const loginForm = document.getElementById("loginForm");
 
 const passwordInput = document.getElementById("password");
-const loginForm = document.getElementById("loginForm");
-const error = document.getElementById("error");
+
 const showPassword = document.getElementById("showPassword");
 
-if (showPassword && passwordInput) {
-  showPassword.addEventListener("click", () => {
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-    } else {
-      passwordInput.type = "password";
-    }
-  });
-}
+const error = document.getElementById("error");
+
+const chat = document.getElementById("chat");
+
+const input = document.getElementById("input");
+
+const messages = document.getElementById("messages");
+
+const typing = document.getElementById("typing");
+
+const sendButton = document.getElementById("sendButton");
+
+const clearChat = document.getElementById("clearChat");
+
+const webSearchButton =
+  document.getElementById("webSearchButton");
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
 
 if (loginForm) {
-  loginForm.addEventListener("submit", (event) => {
+
+  loginForm.addEventListener("submit", function (event) {
+
     event.preventDefault();
 
     const senha = passwordInput.value;
 
-    // COLOQUE A SUA SENHA ATUAL AQUI
-    const SENHA_CORRETA = "KINGGAMER123";
-
     if (senha === SENHA_CORRETA) {
+
       error.textContent = "";
 
-      const login = document.getElementById("login");
-      const app = document.getElementById("app");
+      login.classList.add("hidden");
 
-      if (login) login.classList.add("hidden");
-      if (app) app.classList.remove("hidden");
+      app.classList.remove("hidden");
 
-      // Coloca o cursor no chat automaticamente
-      setTimeout(() => {
-        if (chatInput) chatInput.focus();
-      }, 100);
+      input.focus();
+
     } else {
-      error.textContent = "❌ Senha incorreta!";
+
+      error.textContent =
+        "❌ Senha incorreta.";
+
+      passwordInput.value = "";
+
+      passwordInput.focus();
     }
+
   });
+
 }
 
 
-// =====================================================
-// 💬 CHAT
-// =====================================================
+/* =========================================================
+   MOSTRAR / ESCONDER SENHA
+   ========================================================= */
 
-const chat = document.getElementById("chat");
-const chatInput = document.getElementById("input");
-const messages = document.getElementById("messages");
+if (showPassword) {
+
+  showPassword.addEventListener("click", function () {
+
+    if (passwordInput.type === "password") {
+
+      passwordInput.type = "text";
+
+      showPassword.textContent = "🙈";
+
+    } else {
+
+      passwordInput.type = "password";
+
+      showPassword.textContent = "👁️";
+
+    }
+
+  });
+
+}
 
 
-// Adiciona mensagem na tela
+/* =========================================================
+   ADICIONAR MENSAGEM NA TELA
+   ========================================================= */
+
 function adicionarMensagem(texto, tipo = "zak") {
+
   if (!messages) return;
 
-  const mensagem = document.createElement("div");
+  const message = document.createElement("div");
 
-  mensagem.className = tipo === "user"
-    ? "msg user"
-    : "msg";
+  message.className =
+    tipo === "user"
+      ? "message user-message"
+      : "message zak-message";
 
-  mensagem.textContent = texto;
 
-  messages.appendChild(mensagem);
+  const avatar = document.createElement("div");
 
-  messages.scrollTop = messages.scrollHeight;
+  avatar.className = "message-avatar";
+
+  avatar.textContent =
+    tipo === "user"
+      ? "👤"
+      : "🤖";
+
+
+  const content = document.createElement("div");
+
+  content.className = "message-content";
+
+
+  const nome = document.createElement("strong");
+
+  nome.textContent =
+    tipo === "user"
+      ? "VOCÊ"
+      : "ZAK";
+
+
+  const textoMensagem = document.createElement("p");
+
+  textoMensagem.textContent = texto;
+
+
+  content.appendChild(nome);
+
+  content.appendChild(textoMensagem);
+
+  message.appendChild(avatar);
+
+  message.appendChild(content);
+
+  messages.appendChild(message);
+
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
 }
 
 
-// =====================================================
-// 🧠 CÉREBRO DO ZAK
-// =====================================================
+/* =========================================================
+   INDICADOR "ZAK ESTÁ PENSANDO"
+   ========================================================= */
 
-function pensarComoZak(texto) {
+function mostrarPensando() {
 
-  const pergunta = texto
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim();
+  if (typing) {
 
+    typing.classList.remove("hidden");
 
-  // -------------------------
-  // SAUDAÇÕES
-  // -------------------------
-
-  if (
-    pergunta === "oi" ||
-    pergunta === "ola" ||
-    pergunta.includes("bom dia") ||
-    pergunta.includes("boa tarde") ||
-    pergunta.includes("boa noite")
-  ) {
-    const respostas = [
-      "Eae 😎 Tudo certo?",
-      "Opa! 👋 O ZAK chegou.",
-      "Falaaa 😎 Qual é a missão de hoje?",
-      "Opa! Eu tava esperando você aparecer 😂",
-      "Eae! Bora fazer alguma coisa insana hoje?"
-    ];
-
-    return respostas[Math.floor(Math.random() * respostas.length)];
+    messages.scrollTop =
+      messages.scrollHeight;
   }
 
+}
 
-  // -------------------------
-  // QUEM É O ZAK
-  // -------------------------
 
-  if (
-    pergunta.includes("quem e voce") ||
-    pergunta.includes("quem é voce") ||
-    pergunta.includes("quem e vc") ||
-    pergunta.includes("quem é vc")
-  ) {
-    return "Eu sou o ZAK 🤖, a IA do GAMERULTRA AI. Minha especialidade é ajudar, conversar, criar ideias e tentar não quebrar tudo no processo 😂.";
+function esconderPensando() {
+
+  if (typing) {
+
+    typing.classList.add("hidden");
+
   }
 
-
-  // -------------------------
-  // NOME
-  // -------------------------
-
-  if (pergunta.includes("seu nome")) {
-    return "Meu nome é ZAK 🤖. Mas pode me chamar de Zak, porque escrever meu nome inteiro toda hora dá trabalho 😂.";
-  }
+}
 
 
-  // -------------------------
-  // COMO ESTÁ
-  // -------------------------
+/* =========================================================
+   DESATIVAR / ATIVAR ENVIO
+   ========================================================= */
 
-  if (
-    pergunta.includes("tudo bem") ||
-    pergunta.includes("como voce esta") ||
-    pergunta.includes("como vc esta")
-  ) {
-    return "Tô funcionando 😎. O que, considerando que eu sou código, já é uma vitória.";
-  }
+function mudarEstadoEnvio(estado) {
 
+  enviando = estado;
 
-  // -------------------------
-  // OBRIGADO
-  // -------------------------
+  if (!sendButton) return;
 
-  if (
-    pergunta.includes("obrigado") ||
-    pergunta.includes("obrigada") ||
-    pergunta.includes("valeu")
-  ) {
-    return "Tmj 😎🤝";
-  }
+  sendButton.disabled = estado;
+
+  sendButton.style.opacity =
+    estado ? "0.5" : "1";
+
+  sendButton.style.cursor =
+    estado ? "not-allowed" : "pointer";
+
+}
 
 
-  // -------------------------
-  // AJUDA
-  // -------------------------
+/* =========================================================
+   PERSONALIDADE DO ZAK
+   ========================================================= */
 
-  if (
-    pergunta.includes("ajuda") ||
-    pergunta.includes("o que voce faz") ||
-    pergunta.includes("o que vc faz")
-  ) {
-    return "Posso conversar, responder perguntas simples, gerar ideias, ajudar com programação, pensar em jogos, explicar assuntos e muito mais. Ainda estou na versão inicial, então não espere que eu hackeie a NASA 😂.";
-  }
+function prepararMensagemParaZak(mensagem) {
 
+  return {
 
-  // -------------------------
-  // JOGOS
-  // -------------------------
+    role: "user",
 
-  if (
-    pergunta.includes("crie um jogo") ||
-    pergunta.includes("criar um jogo") ||
-    pergunta.includes("fazer um jogo")
-  ) {
-    return "🎮 MODO CRIADOR DE JOGOS ATIVADO! Posso te ajudar a criar a ideia, personagens, fases, história e até o código. Me diga que tipo de jogo você quer.";
-  }
+    content: mensagem
+
+  };
+
+}
 
 
-  // -------------------------
-  // IA
-  // -------------------------
+/* =========================================================
+   ENVIAR MENSAGEM PARA A IA
+   ========================================================= */
 
-  if (
-    pergunta.includes("crie uma ia") ||
-    pergunta.includes("criar uma ia") ||
-    pergunta.includes("outra ia")
-  ) {
-    return "🤖 Podemos criar outra IA! Me diga o nome dela, personalidade e o que você quer que ela consiga fazer.";
-  }
+async function conversarComZak(mensagem) {
+
+  const novaMensagem =
+    prepararMensagemParaZak(mensagem);
 
 
-  // -------------------------
-  // PROGRAMACAO
-  // -------------------------
-
-  if (
-    pergunta.includes("codigo") ||
-    pergunta.includes("programar") ||
-    pergunta.includes("javascript") ||
-    pergunta.includes("html") ||
-    pergunta.includes("css")
-  ) {
-    return "💻 Modo programação ativado. Posso te ajudar a encontrar erros, criar HTML, CSS e JavaScript e explicar o código passo a passo.";
-  }
+  historico.push(novaMensagem);
 
 
-  // -------------------------
-  // HORA
-  // -------------------------
+  try {
 
-  if (
-    pergunta.includes("que horas") ||
-    pergunta.includes("horas sao") ||
-    pergunta.includes("horario")
-  ) {
-    const agora = new Date();
+    const resposta = await fetch(
+      API_URL,
+      {
+        method: "POST",
 
-    const hora = agora.toLocaleTimeString("pt-BR", {
-      hour: "2-digit",
-      minute: "2-digit"
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body: JSON.stringify({
+
+          messages: historico,
+
+          mode: modoAtual,
+
+          web_search:
+            pesquisaWebAtiva
+
+        })
+
+      }
+    );
+
+
+    if (!resposta.ok) {
+
+      throw new Error(
+        "Servidor respondeu com erro."
+      );
+
+    }
+
+
+    const dados =
+      await resposta.json();
+
+
+    if (!dados || !dados.reply) {
+
+      throw new Error(
+        "A IA não retornou uma resposta válida."
+      );
+
+    }
+
+
+    const respostaZak =
+      dados.reply;
+
+
+    historico.push({
+
+      role: "assistant",
+
+      content: respostaZak
+
     });
 
-    return `🕐 Agora são ${hora}.`;
-  }
+
+    return respostaZak;
 
 
-  // -------------------------
-  // DATA
-  // -------------------------
+  } catch (erro) {
 
-  if (
-    pergunta.includes("que dia") ||
-    pergunta.includes("data de hoje") ||
-    pergunta.includes("hoje e")
-  ) {
-    const agora = new Date();
-
-    const data = agora.toLocaleDateString("pt-BR");
-
-    return `📅 Hoje é ${data}.`;
-  }
+    console.error(
+      "Erro ao conversar com ZAK:",
+      erro
+    );
 
 
-  // -------------------------
-  // PIADA
-  // -------------------------
+    /*
+      Se o servidor ainda não estiver configurado,
+      mostramos uma mensagem explicando o problema.
+    */
 
-  if (
-    pergunta.includes("piada") ||
-    pergunta.includes("conte uma piada")
-  ) {
-    const piadas = [
-      "Por que o computador foi ao médico? Porque estava com um vírus 😂.",
-      "O programador foi ao mercado e comprou 10 pães. Voltou com 10 pães. Finalmente um programa sem bugs 😂.",
-      "Qual é o lugar favorito do programador? O espaço... porque tem muito espaço em branco 😂."
-    ];
+    historico.pop();
 
-    return piadas[Math.floor(Math.random() * piadas.length)];
-  }
-
-
-  // -------------------------
-  // MEMÓRIA
-  // -------------------------
-
-  if (
-    pergunta.includes("voce lembra") ||
-    pergunta.includes("vc lembra") ||
-    pergunta.includes("lembra de mim")
-  ) {
-    return "Neste momento eu consigo lembrar do que está nesta conversa enquanto ela estiver aberta. Uma memória permanente precisaria ser programada separadamente.";
-  }
-
-
-  // -------------------------
-  // BRINCADEIRA
-  // -------------------------
-
-  if (
-    pergunta.includes("voce e inteligente") ||
-    pergunta.includes("vc e inteligente")
-  ) {
-    return "Claro 😎. Só não me coloca numa prova de matemática às 7 da manhã que minha inteligência entra em modo economia de energia.";
-  }
-
-
-  // -------------------------
-  // RESPOSTAS GENÉRICAS
-  // -------------------------
-
-  const respostas = [
-    `Hmm... interessante 👀 Você disse: "${texto}".`,
-    `Entendi 😎: "${texto}".`,
-    `Boa! 🤖 Estou pensando sobre isso...`,
-    `Ok, essa foi inesperada 😂.`,
-    `Interessante. Me explica um pouco mais sobre isso.`,
-    `Analisando sua mensagem... 🧠`,
-    `Pode deixar. O ZAK recebeu sua mensagem 😎.`,
-    `Isso merece uma resposta melhor. Me dê mais detalhes 👀.`
-  ];
-
-  return respostas[Math.floor(Math.random() * respostas.length)];
-}
-
-
-// =====================================================
-// 🚀 ENVIAR MENSAGEM
-// =====================================================
-
-if (chat) {
-
-  chat.addEventListener("submit", (event) => {
-
-    event.preventDefault();
-
-    if (!chatInput) return;
-
-    const texto = chatInput.value.trim();
-
-    if (!texto) return;
-
-
-    // Mensagem do usuário
-    adicionarMensagem(texto, "user");
-
-    // Limpa caixa
-    chatInput.value = "";
-
-    // Mantém cursor na caixa
-    chatInput.focus();
-
-
-    // Pequeno tempo de "pensamento"
-    setTimeout(() => {
-
-      const resposta = pensarComoZak(texto);
-
-      adicionarMensagem(resposta, "zak");
-
-      chatInput.focus();
-
-    }, 400);
-
-  });
-
-}
-
-
-// =====================================================
-// 👋 PRIMEIRA MENSAGEM
-// =====================================================
-
-function iniciarZak() {
-
-  if (!messages) return;
-
-  if (messages.children.length === 0) {
-
-    adicionarMensagem(
-      "🤖 ZAK: Eae! Eu sou o ZAK. Digite alguma coisa aí 😎"
+    return (
+      "⚠️ O cérebro principal do ZAK ainda " +
+      "não está conectado ao servidor.\n\n" +
+      "Quando o server.js estiver configurado, " +
+      "eu vou poder usar a IA real."
     );
 
   }
 
 }
 
-iniciarZak();
+
+/* =========================================================
+   ENVIO DO CHAT
+   ========================================================= */
+
+if (chat) {
+
+  chat.addEventListener(
+    "submit",
+    async function (event) {
+
+      event.preventDefault();
+
+
+      if (enviando) return;
+
+
+      const mensagem =
+        input.value.trim();
+
+
+      if (!mensagem) return;
+
+
+      adicionarMensagem(
+        mensagem,
+        "user"
+      );
+
+
+      input.value = "";
+
+
+      mudarEstadoEnvio(true);
+
+      mostrarPensando();
+
+
+      try {
+
+        const resposta =
+          await conversarComZak(
+            mensagem
+          );
+
+
+        esconderPensando();
+
+
+        adicionarMensagem(
+          resposta,
+          "zak"
+        );
+
+
+      } catch (erro) {
+
+        esconderPensando();
+
+
+        adicionarMensagem(
+          "❌ Tive um problema para responder. Tente novamente.",
+          "zak"
+        );
+
+      }
+
+
+      mudarEstadoEnvio(false);
+
+      input.focus();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   LIMPAR CONVERSA
+   ========================================================= */
+
+if (clearChat) {
+
+  clearChat.addEventListener(
+    "click",
+    function () {
+
+      historico = [];
+
+      messages.innerHTML = "";
+
+
+      adicionarMensagem(
+        "Conversa limpa. 😎 Bora começar de novo! O que você quer fazer?",
+        "zak"
+      );
+
+
+      input.focus();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   PESQUISA NA WEB
+   ========================================================= */
+
+if (webSearchButton) {
+
+  webSearchButton.addEventListener(
+    "click",
+    function () {
+
+      pesquisaWebAtiva =
+        !pesquisaWebAtiva;
+
+
+      if (pesquisaWebAtiva) {
+
+        webSearchButton.textContent =
+          "🌐 Pesquisa Web: ON";
+
+        webSearchButton.classList.add(
+          "active"
+        );
+
+        adicionarMensagem(
+          "🌐 Modo pesquisa ativado. Quando eu responder, poderei usar informações atuais da web.",
+          "zak"
+        );
+
+      } else {
+
+        webSearchButton.textContent =
+          "🌐 Pesquisa Web";
+
+        webSearchButton.classList.remove(
+          "active"
+        );
+
+        adicionarMensagem(
+          "🌐 Pesquisa web desativada.",
+          "zak"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   MODOS DO ZAK
+   ========================================================= */
+
+const modeButtons =
+  document.querySelectorAll(
+    ".mode-button"
+  );
+
+
+modeButtons.forEach(
+  function (button) {
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        modeButtons.forEach(
+          function (item) {
+
+            item.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+        button.classList.add(
+          "active"
+        );
+
+
+        modoAtual =
+          button.dataset.mode ||
+          "normal";
+
+
+        const nomes = {
+
+          normal:
+            "💬 Modo conversa ativado.",
+
+          programacao:
+            "💻 Modo programação ativado.",
+
+          jogos:
+            "🎮 Modo criação de jogos ativado.",
+
+          criatividade:
+            "🎨 Modo criatividade ativado.",
+
+          pesquisa:
+            "🔎 Modo pesquisa ativado."
+
+        };
+
+
+        adicionarMensagem(
+          nomes[modoAtual] ||
+          "Modo alterado.",
+          "zak"
+        );
+
+
+        input.focus();
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   ENTER PARA ENVIAR
+   ========================================================= */
+
+if (input) {
+
+  input.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
+        event.preventDefault();
+
+        if (chat) {
+
+          chat.requestSubmit();
+
+        }
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ATALHO CTRL + K
+   LIMPAR CONVERSA
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function (event) {
+
+    if (
+      event.ctrlKey &&
+      event.key.toLowerCase() === "k"
+    ) {
+
+      event.preventDefault();
+
+      if (clearChat) {
+
+        clearChat.click();
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   MENSAGEM INICIAL
+   ========================================================= */
+
+console.log(
+  "🤖 ZAK iniciado."
+);
+
+console.log(
+  "👑 Criador: IsaacGamer18Sonic"
+);
+
+console.log(
+  "🤖 Mãe na lore: ChatGPT"
+);
+
+console.log(
+  "🧠 Modo atual:",
+  modoAtual
+);
