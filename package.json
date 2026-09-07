@@ -1,8 +1,23 @@
 {
-  "name": "isaac-ai",
-  "version": "1.0.0",
-  "private": true,
-  "description": "ISAAC AI com painel do ZAK",
-  "scripts": {"start": "node server.js"},
-  "dependencies": {"express": "^5.1.0"}
+  "name": "gamerultra-ai",
+  "version": "2.0.0",
+  "description": "GAMERULTRA AI - ZAK Super IA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ai",
+    "zak",
+    "gamerultra",
+    "artificial-intelligence"
+  ],
+  "author": "IsaacGamer18Sonic",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "openai": "^5.12.0"
+  }
 }
