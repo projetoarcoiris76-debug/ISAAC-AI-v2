@@ -10,7 +10,7 @@
 
 const API_URL = "/api/chat";
 
-const SENHA_CORRETA = "SUA_SENHA_AQUI";
+const SENHA_CORRETA = "KINGGAMER123";
 
 let historico = [];
 
