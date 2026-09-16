@@ -1,622 +1,666 @@
-/* =========================================================
-   GAMERULTRA AI - ZAK
-   APP.JS
-   ========================================================= */
-
-
-/* =========================================================
-   CONFIGURAÇÕES
-   ========================================================= */
-
 const API_URL = "/api/chat";
 
-const SENHA_CORRETA = "KINGGAMER123";
+// =====================================================
+// ELEMENTOS
+// =====================================================
 
-let historico = [];
-
-let modoAtual = "normal";
-
-let pesquisaWebAtiva = false;
-
-let enviando = false;
-
-
-/* =========================================================
-   ELEMENTOS DA PÁGINA
-   ========================================================= */
-
-const login = document.getElementById("login");
-const app = document.getElementById("app");
+const loginScreen = document.getElementById("login");
+const registerScreen = document.getElementById("register");
+const appScreen = document.getElementById("app");
 
 const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
 
-const passwordInput = document.getElementById("password");
+const loginUsername = document.getElementById("loginUsername");
+const loginPassword = document.getElementById("loginPassword");
 
-const showPassword = document.getElementById("showPassword");
+const registerUsername = document.getElementById("registerUsername");
+const registerPassword = document.getElementById("registerPassword");
 
-const error = document.getElementById("error");
+const loginError = document.getElementById("loginError");
+const registerError = document.getElementById("registerError");
+const registerSuccess = document.getElementById("registerSuccess");
 
-const chat = document.getElementById("chat");
+const showRegister = document.getElementById("showRegister");
+const showLogin = document.getElementById("showLogin");
 
-const input = document.getElementById("input");
+const showLoginPassword =
+  document.getElementById("showLoginPassword");
 
-const messages = document.getElementById("messages");
+const showRegisterPassword =
+  document.getElementById("showRegisterPassword");
 
-const typing = document.getElementById("typing");
+const logoutButton =
+  document.getElementById("logoutButton");
 
-const sendButton = document.getElementById("sendButton");
+const loggedUser =
+  document.getElementById("loggedUser");
 
-const clearChat = document.getElementById("clearChat");
+const chat =
+  document.getElementById("chat");
+
+const input =
+  document.getElementById("input");
+
+const messages =
+  document.getElementById("messages");
+
+const typing =
+  document.getElementById("typing");
+
+const clearChat =
+  document.getElementById("clearChat");
 
 const webSearchButton =
   document.getElementById("webSearchButton");
 
+const modeButtons =
+  document.querySelectorAll(".mode-button");
 
-/* =========================================================
-   LOGIN
-   ========================================================= */
 
-if (loginForm) {
+// =====================================================
+// ESTADO
+// =====================================================
 
-  loginForm.addEventListener("submit", function (event) {
+let token = localStorage.getItem("zak_token");
+let username = localStorage.getItem("zak_username");
 
-    event.preventDefault();
+let historico = [];
 
-    const senha = passwordInput.value;
+let modoAtual = "normal";
+let pesquisaWeb = false;
 
-    if (senha === SENHA_CORRETA) {
 
-      error.textContent = "";
+// =====================================================
+// TELAS
+// =====================================================
 
-      login.classList.add("hidden");
+function mostrarLogin() {
+  loginScreen.classList.remove("hidden");
+  registerScreen.classList.add("hidden");
+  appScreen.classList.add("hidden");
+}
 
-      app.classList.remove("hidden");
+function mostrarCadastro() {
+  loginScreen.classList.add("hidden");
+  registerScreen.classList.remove("hidden");
+  appScreen.classList.add("hidden");
+}
 
-      input.focus();
+function mostrarApp(nome) {
+  loginScreen.classList.add("hidden");
+  registerScreen.classList.add("hidden");
+  appScreen.classList.remove("hidden");
 
+  loggedUser.textContent = `👤 ${nome}`;
+
+  setTimeout(() => {
+    input.focus();
+  }, 200);
+}
+
+
+// =====================================================
+// MOSTRAR / ESCONDER SENHA
+// =====================================================
+
+function configurarSenha(button, campo) {
+  if (!button || !campo) return;
+
+  button.addEventListener("click", () => {
+    if (campo.type === "password") {
+      campo.type = "text";
+      button.textContent = "🙈";
     } else {
-
-      error.textContent =
-        "❌ Senha incorreta.";
-
-      passwordInput.value = "";
-
-      passwordInput.focus();
+      campo.type = "password";
+      button.textContent = "👁️";
     }
-
   });
-
 }
 
+configurarSenha(
+  showLoginPassword,
+  loginPassword
+);
 
-/* =========================================================
-   MOSTRAR / ESCONDER SENHA
-   ========================================================= */
-
-if (showPassword) {
-
-  showPassword.addEventListener("click", function () {
-
-    if (passwordInput.type === "password") {
-
-      passwordInput.type = "text";
-
-      showPassword.textContent = "🙈";
-
-    } else {
-
-      passwordInput.type = "password";
-
-      showPassword.textContent = "👁️";
-
-    }
-
-  });
-
-}
+configurarSenha(
+  showRegisterPassword,
+  registerPassword
+);
 
 
-/* =========================================================
-   ADICIONAR MENSAGEM NA TELA
-   ========================================================= */
+// =====================================================
+// TROCAR LOGIN / CADASTRO
+// =====================================================
 
-function adicionarMensagem(texto, tipo = "zak") {
+showRegister.addEventListener("click", () => {
+  loginError.textContent = "";
+  registerError.textContent = "";
+  registerSuccess.textContent = "";
 
-  if (!messages) return;
+  mostrarCadastro();
 
-  const message = document.createElement("div");
+  registerUsername.focus();
+});
 
-  message.className =
-    tipo === "user"
-      ? "message user-message"
-      : "message zak-message";
+showLogin.addEventListener("click", () => {
+  registerError.textContent = "";
+  registerSuccess.textContent = "";
 
+  mostrarLogin();
 
-  const avatar = document.createElement("div");
-
-  avatar.className = "message-avatar";
-
-  avatar.textContent =
-    tipo === "user"
-      ? "👤"
-      : "🤖";
+  loginUsername.focus();
+});
 
 
-  const content = document.createElement("div");
+// =====================================================
+// CADASTRO
+// =====================================================
 
-  content.className = "message-content";
+registerForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
+  registerError.textContent = "";
+  registerSuccess.textContent = "";
 
-  const nome = document.createElement("strong");
+  const usernameValue =
+    registerUsername.value.trim();
 
-  nome.textContent =
-    tipo === "user"
-      ? "VOCÊ"
-      : "ZAK";
+  const passwordValue =
+    registerPassword.value;
 
+  if (!usernameValue || !passwordValue) {
+    registerError.textContent =
+      "⚠️ Preencha usuário e senha.";
 
-  const textoMensagem = document.createElement("p");
-
-  textoMensagem.textContent = texto;
-
-
-  content.appendChild(nome);
-
-  content.appendChild(textoMensagem);
-
-  message.appendChild(avatar);
-
-  message.appendChild(content);
-
-  messages.appendChild(message);
-
-
-  messages.scrollTop =
-    messages.scrollHeight;
-
-}
-
-
-/* =========================================================
-   INDICADOR "ZAK ESTÁ PENSANDO"
-   ========================================================= */
-
-function mostrarPensando() {
-
-  if (typing) {
-
-    typing.classList.remove("hidden");
-
-    messages.scrollTop =
-      messages.scrollHeight;
+    return;
   }
-
-}
-
-
-function esconderPensando() {
-
-  if (typing) {
-
-    typing.classList.add("hidden");
-
-  }
-
-}
-
-
-/* =========================================================
-   DESATIVAR / ATIVAR ENVIO
-   ========================================================= */
-
-function mudarEstadoEnvio(estado) {
-
-  enviando = estado;
-
-  if (!sendButton) return;
-
-  sendButton.disabled = estado;
-
-  sendButton.style.opacity =
-    estado ? "0.5" : "1";
-
-  sendButton.style.cursor =
-    estado ? "not-allowed" : "pointer";
-
-}
-
-
-/* =========================================================
-   PERSONALIDADE DO ZAK
-   ========================================================= */
-
-function prepararMensagemParaZak(mensagem) {
-
-  return {
-
-    role: "user",
-
-    content: mensagem
-
-  };
-
-}
-
-
-/* =========================================================
-   ENVIAR MENSAGEM PARA A IA
-   ========================================================= */
-
-async function conversarComZak(mensagem) {
-
-  const novaMensagem =
-    prepararMensagemParaZak(mensagem);
-
-
-  historico.push(novaMensagem);
-
 
   try {
 
-    const resposta = await fetch(
+    registerSuccess.textContent =
+      "⏳ Criando sua conta...";
+
+    const response = await fetch("/api/register", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        username: usernameValue,
+        password: passwordValue
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Erro ao criar conta."
+      );
+    }
+
+    registerSuccess.textContent =
+      "✅ Conta criada! Agora faça login.";
+
+    registerForm.reset();
+
+    setTimeout(() => {
+      mostrarLogin();
+
+      loginUsername.value =
+        usernameValue;
+
+      loginPassword.focus();
+    }, 1000);
+
+  } catch (error) {
+
+    console.error(error);
+
+    registerSuccess.textContent = "";
+
+    registerError.textContent =
+      "❌ " + error.message;
+  }
+});
+
+
+// =====================================================
+// LOGIN
+// =====================================================
+
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  loginError.textContent = "";
+
+  const usernameValue =
+    loginUsername.value.trim();
+
+  const passwordValue =
+    loginPassword.value;
+
+  if (!usernameValue || !passwordValue) {
+    loginError.textContent =
+      "⚠️ Digite usuário e senha.";
+
+    return;
+  }
+
+  try {
+
+    loginError.textContent =
+      "⏳ Entrando...";
+
+    const response = await fetch("/api/login", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        username: usernameValue,
+        password: passwordValue
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Erro ao entrar."
+      );
+    }
+
+    token = data.token;
+    username = data.username;
+
+    localStorage.setItem(
+      "zak_token",
+      token
+    );
+
+    localStorage.setItem(
+      "zak_username",
+      username
+    );
+
+    loginError.textContent = "";
+
+    loginForm.reset();
+
+    historico = [];
+
+    mostrarApp(username);
+
+  } catch (error) {
+
+    console.error(error);
+
+    loginError.textContent =
+      "❌ " + error.message;
+  }
+});
+
+
+// =====================================================
+// VERIFICAR SESSÃO
+// =====================================================
+
+async function verificarSessao() {
+
+  if (!token) {
+    mostrarLogin();
+    return;
+  }
+
+  try {
+
+    const response = await fetch("/api/me", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Sessão inválida.");
+    }
+
+    const data = await response.json();
+
+    username = data.username;
+
+    localStorage.setItem(
+      "zak_username",
+      username
+    );
+
+    mostrarApp(username);
+
+  } catch {
+
+    localStorage.removeItem("zak_token");
+    localStorage.removeItem("zak_username");
+
+    token = null;
+    username = null;
+
+    mostrarLogin();
+  }
+}
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+logoutButton.addEventListener("click", async () => {
+
+  try {
+
+    if (token) {
+      await fetch("/api/logout", {
+        method: "POST",
+
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+
+  } catch {
+    // Mesmo que o servidor falhe,
+    // vamos sair localmente.
+  }
+
+  localStorage.removeItem("zak_token");
+  localStorage.removeItem("zak_username");
+
+  token = null;
+  username = null;
+  historico = [];
+
+  messages.innerHTML = "";
+
+  loginForm.reset();
+
+  mostrarLogin();
+});
+
+
+// =====================================================
+// ADICIONAR MENSAGEM
+// =====================================================
+
+function adicionarMensagem(
+  texto,
+  tipo = "assistant"
+) {
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    `message ${
+      tipo === "user"
+        ? "user-message"
+        : "assistant-message"
+    }`;
+
+  const nome =
+    tipo === "user"
+      ? `👤 ${username || "Você"}`
+      : "🤖 ZAK";
+
+  div.innerHTML = `
+    <div class="message-name">
+      ${nome}
+    </div>
+
+    <div class="message-text"></div>
+  `;
+
+  const textoDiv =
+    div.querySelector(".message-text");
+
+  textoDiv.textContent = texto;
+
+  messages.appendChild(div);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+}
+
+
+// =====================================================
+// ZAK PENSANDO
+// =====================================================
+
+function mostrarTyping() {
+  typing.classList.remove("hidden");
+
+  messages.scrollTop =
+    messages.scrollHeight;
+}
+
+function esconderTyping() {
+  typing.classList.add("hidden");
+}
+
+
+// =====================================================
+// ENVIAR MENSAGEM AO ZAK
+// =====================================================
+
+async function conversarComZak(texto) {
+
+  if (!token) {
+    mostrarLogin();
+    return;
+  }
+
+  historico.push({
+    role: "user",
+    content: texto
+  });
+
+  mostrarTyping();
+
+  try {
+
+    const response = await fetch(
       API_URL,
       {
         method: "POST",
 
         headers: {
-          "Content-Type":
-            "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
 
         body: JSON.stringify({
-
           messages: historico,
-
           mode: modoAtual,
-
-          web_search:
-            pesquisaWebAtiva
-
+          web_search: pesquisaWeb
         })
-
       }
     );
 
+    const data =
+      await response.json();
 
-    if (!resposta.ok) {
+    if (response.status === 401) {
 
-      throw new Error(
-        "Servidor respondeu com erro."
-      );
+      localStorage.removeItem("zak_token");
+      localStorage.removeItem("zak_username");
 
+      token = null;
+      username = null;
+
+      esconderTyping();
+      mostrarLogin();
+
+      return;
     }
 
-
-    const dados =
-      await resposta.json();
-
-
-    if (!dados || !dados.reply) {
-
+    if (!response.ok) {
       throw new Error(
-        "A IA não retornou uma resposta válida."
+        data.error ||
+        "O servidor não conseguiu responder."
       );
-
     }
 
-
-    const respostaZak =
-      dados.reply;
-
+    const resposta =
+      data.reply ||
+      "Não consegui responder agora.";
 
     historico.push({
-
       role: "assistant",
-
-      content: respostaZak
-
+      content: resposta
     });
 
+    esconderTyping();
 
-    return respostaZak;
+    adicionarMensagem(
+      resposta,
+      "assistant"
+    );
 
-
-  } catch (erro) {
+  } catch (error) {
 
     console.error(
-      "Erro ao conversar com ZAK:",
-      erro
+      "ERRO AO CONVERSAR COM ZAK:",
+      error
     );
 
+    esconderTyping();
 
-    /*
-      Se o servidor ainda não estiver configurado,
-      mostramos uma mensagem explicando o problema.
-    */
-
-    historico.pop();
-
-    return (
-      "⚠️ O cérebro principal do ZAK ainda " +
-      "não está conectado ao servidor.\n\n" +
-      "Quando o server.js estiver configurado, " +
-      "eu vou poder usar a IA real."
+    adicionarMensagem(
+      "⚠️ Não consegui falar com o cérebro do ZAK agora.",
+      "assistant"
     );
-
   }
-
 }
 
 
-/* =========================================================
-   ENVIO DO CHAT
-   ========================================================= */
+// =====================================================
+// CHAT
+// =====================================================
 
-if (chat) {
+chat.addEventListener(
+  "submit",
+  async (event) => {
 
-  chat.addEventListener(
-    "submit",
-    async function (event) {
+    event.preventDefault();
 
-      event.preventDefault();
+    const texto =
+      input.value.trim();
 
+    if (!texto) return;
 
-      if (enviando) return;
+    input.value = "";
 
-
-      const mensagem =
-        input.value.trim();
-
-
-      if (!mensagem) return;
-
-
-      adicionarMensagem(
-        mensagem,
-        "user"
-      );
-
-
-      input.value = "";
-
-
-      mudarEstadoEnvio(true);
-
-      mostrarPensando();
-
-
-      try {
-
-        const resposta =
-          await conversarComZak(
-            mensagem
-          );
-
-
-        esconderPensando();
-
-
-        adicionarMensagem(
-          resposta,
-          "zak"
-        );
-
-
-      } catch (erro) {
-
-        esconderPensando();
-
-
-        adicionarMensagem(
-          "❌ Tive um problema para responder. Tente novamente.",
-          "zak"
-        );
-
-      }
-
-
-      mudarEstadoEnvio(false);
-
-      input.focus();
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   LIMPAR CONVERSA
-   ========================================================= */
-
-if (clearChat) {
-
-  clearChat.addEventListener(
-    "click",
-    function () {
-
-      historico = [];
-
-      messages.innerHTML = "";
-
-
-      adicionarMensagem(
-        "Conversa limpa. 😎 Bora começar de novo! O que você quer fazer?",
-        "zak"
-      );
-
-
-      input.focus();
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   PESQUISA NA WEB
-   ========================================================= */
-
-if (webSearchButton) {
-
-  webSearchButton.addEventListener(
-    "click",
-    function () {
-
-      pesquisaWebAtiva =
-        !pesquisaWebAtiva;
-
-
-      if (pesquisaWebAtiva) {
-
-        webSearchButton.textContent =
-          "🌐 Pesquisa Web: ON";
-
-        webSearchButton.classList.add(
-          "active"
-        );
-
-        adicionarMensagem(
-          "🌐 Modo pesquisa ativado. Quando eu responder, poderei usar informações atuais da web.",
-          "zak"
-        );
-
-      } else {
-
-        webSearchButton.textContent =
-          "🌐 Pesquisa Web";
-
-        webSearchButton.classList.remove(
-          "active"
-        );
-
-        adicionarMensagem(
-          "🌐 Pesquisa web desativada.",
-          "zak"
-        );
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   MODOS DO ZAK
-   ========================================================= */
-
-const modeButtons =
-  document.querySelectorAll(
-    ".mode-button"
-  );
-
-
-modeButtons.forEach(
-  function (button) {
-
-    button.addEventListener(
-      "click",
-      function () {
-
-        modeButtons.forEach(
-          function (item) {
-
-            item.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        button.classList.add(
-          "active"
-        );
-
-
-        modoAtual =
-          button.dataset.mode ||
-          "normal";
-
-
-        const nomes = {
-
-          normal:
-            "💬 Modo conversa ativado.",
-
-          programacao:
-            "💻 Modo programação ativado.",
-
-          jogos:
-            "🎮 Modo criação de jogos ativado.",
-
-          criatividade:
-            "🎨 Modo criatividade ativado.",
-
-          pesquisa:
-            "🔎 Modo pesquisa ativado."
-
-        };
-
-
-        adicionarMensagem(
-          nomes[modoAtual] ||
-          "Modo alterado.",
-          "zak"
-        );
-
-
-        input.focus();
-
-      }
+    adicionarMensagem(
+      texto,
+      "user"
     );
 
+    await conversarComZak(texto);
   }
 );
 
 
-/* =========================================================
-   ENTER PARA ENVIAR
-   ========================================================= */
+// =====================================================
+// MODOS
+// =====================================================
 
-if (input) {
+modeButtons.forEach((button) => {
 
-  input.addEventListener(
-    "keydown",
-    function (event) {
+  button.addEventListener(
+    "click",
+    () => {
 
-      if (
-        event.key === "Enter" &&
-        !event.shiftKey
-      ) {
+      modeButtons.forEach((item) => {
+        item.classList.remove("active");
+      });
 
-        event.preventDefault();
+      button.classList.add("active");
 
-        if (chat) {
+      modoAtual =
+        button.dataset.mode;
 
-          chat.requestSubmit();
-
-        }
-
-      }
-
+      input.focus();
     }
   );
 
-}
+});
 
 
-/* =========================================================
-   ATALHO CTRL + K
-   LIMPAR CONVERSA
-   ========================================================= */
+// =====================================================
+// PESQUISA WEB
+// =====================================================
+
+webSearchButton.addEventListener(
+  "click",
+  () => {
+
+    pesquisaWeb =
+      !pesquisaWeb;
+
+    webSearchButton.classList.toggle(
+      "active",
+      pesquisaWeb
+    );
+
+    if (pesquisaWeb) {
+
+      webSearchButton.textContent =
+        "🌐 Pesquisa na web: ON";
+
+    } else {
+
+      webSearchButton.textContent =
+        "🌐 Pesquisa na web";
+    }
+
+    input.focus();
+  }
+);
+
+
+// =====================================================
+// LIMPAR CONVERSA
+// =====================================================
+
+clearChat.addEventListener(
+  "click",
+  () => {
+
+    historico = [];
+
+    messages.innerHTML = "";
+
+    adicionarMensagem(
+      "Conversa limpa. 😎 Bora começar de novo!",
+      "assistant"
+    );
+
+    input.focus();
+  }
+);
+
+
+// =====================================================
+// ATALHOS
+// =====================================================
 
 document.addEventListener(
   "keydown",
-  function (event) {
+  (event) => {
 
     if (
       event.ctrlKey &&
@@ -625,21 +669,20 @@ document.addEventListener(
 
       event.preventDefault();
 
-      if (clearChat) {
-
-        clearChat.click();
-
+      if (!appScreen.classList.contains("hidden")) {
+        input.focus();
       }
-
     }
 
   }
 );
 
 
-/* =========================================================
-   MENSAGEM INICIAL
-   ========================================================= */
+// =====================================================
+// INICIAR
+// =====================================================
+
+verificarSessao();
 
 console.log(
   "🤖 ZAK iniciado."
@@ -650,10 +693,5 @@ console.log(
 );
 
 console.log(
-  "🤖 Mãe na lore: ChatGPT"
-);
-
-console.log(
-  "🧠 Modo atual:",
-  modoAtual
+  "🧠 Lore: ChatGPT é a 'mãe' do ZAK."
 );
