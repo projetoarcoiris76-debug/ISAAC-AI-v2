@@ -9,17 +9,11 @@
   >
 
   <meta
-    name="description"
-    content="GAMERULTRA AI - ZAK, sua inteligência artificial."
-  >
-
-  <!-- Google Search Console -->
-  <meta
     name="google-site-verification"
     content="xQkwOdYagqO4pmK9tiXDwCjmHmyNWK3r9tm30TPpIDY"
   >
 
-  <title>GAMERULTRA AI - ZAK</title>
+  <title>GAMERULTRA AI — ZAK</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -29,14 +23,13 @@
   <!-- FUNDO -->
   <div class="grid"></div>
 
+  <!-- ================================================= -->
+  <!-- LOGIN -->
+  <!-- ================================================= -->
 
-  <!-- =========================
-       TELA DE LOGIN
-       ========================= -->
+  <main id="login" class="screen">
 
-  <main id="login" class="login">
-
-    <section class="card">
+    <section class="card login-card">
 
       <div class="logo">
         🤖
@@ -48,12 +41,29 @@
         Entre para conversar com o ZAK
       </p>
 
+      <!-- LOGIN -->
       <form id="loginForm">
+
+        <label for="loginUsername">
+          Usuário
+        </label>
+
+        <input
+          id="loginUsername"
+          type="text"
+          placeholder="Digite seu usuário"
+          autocomplete="username"
+          required
+        >
+
+        <label for="loginPassword">
+          Senha
+        </label>
 
         <div class="password-box">
 
           <input
-            id="password"
+            id="loginPassword"
             type="password"
             placeholder="Digite sua senha"
             autocomplete="current-password"
@@ -62,8 +72,8 @@
 
           <button
             type="button"
-            id="showPassword"
-            aria-label="Mostrar senha"
+            id="showLoginPassword"
+            class="password-button"
           >
             👁️
           </button>
@@ -72,31 +82,123 @@
 
         <button
           type="submit"
-          class="login-button"
+          class="primary-button"
         >
-          ENTRAR 🚀
+          🚀 ENTRAR
         </button>
 
-        <div id="error"></div>
-
       </form>
+
+      <p id="loginError" class="error"></p>
+
+      <!-- IR PARA CADASTRO -->
+
+      <button
+        id="showRegister"
+        class="secondary-button"
+        type="button"
+      >
+        ✨ Criar uma conta
+      </button>
 
     </section>
 
   </main>
 
 
-  <!-- =========================
-       PAINEL PRINCIPAL DO ZAK
-       ========================= -->
+  <!-- ================================================= -->
+  <!-- CADASTRO -->
+  <!-- ================================================= -->
+
+  <main id="register" class="screen hidden">
+
+    <section class="card login-card">
+
+      <div class="logo">
+        🧑‍💻
+      </div>
+
+      <h1>Criar conta</h1>
+
+      <p class="subtitle">
+        Crie sua conta para usar o ZAK
+      </p>
+
+      <form id="registerForm">
+
+        <label for="registerUsername">
+          Usuário
+        </label>
+
+        <input
+          id="registerUsername"
+          type="text"
+          placeholder="Escolha um usuário"
+          autocomplete="username"
+          required
+        >
+
+        <label for="registerPassword">
+          Senha
+        </label>
+
+        <div class="password-box">
+
+          <input
+            id="registerPassword"
+            type="password"
+            placeholder="Mínimo de 6 caracteres"
+            autocomplete="new-password"
+            required
+          >
+
+          <button
+            type="button"
+            id="showRegisterPassword"
+            class="password-button"
+          >
+            👁️
+          </button>
+
+        </div>
+
+        <button
+          type="submit"
+          class="primary-button"
+        >
+          ✅ CRIAR CONTA
+        </button>
+
+      </form>
+
+      <p id="registerError" class="error"></p>
+
+      <p id="registerSuccess" class="success"></p>
+
+      <button
+        id="showLogin"
+        class="secondary-button"
+        type="button"
+      >
+        ← Voltar para login
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================================================= -->
+  <!-- APLICATIVO / ZAK -->
+  <!-- ================================================= -->
 
   <main id="app" class="app hidden">
 
     <!-- CABEÇALHO -->
 
-    <header class="app-header">
+    <header class="topbar">
 
-      <div class="zak-info">
+      <div class="brand">
 
         <div class="zak-avatar">
           🤖
@@ -104,78 +206,89 @@
 
         <div>
 
-          <h1>ZAK</h1>
+          <h2>ZAK</h2>
 
-          <p>
-            <span class="online-dot"></span>
-            Super IA online
-          </p>
+          <span>
+            🟢 Online
+          </span>
 
         </div>
 
       </div>
 
-      <div class="creator-info">
-        👑 IsaacGamer18Sonic
+      <div class="account">
+
+        <span id="loggedUser">
+          Usuário
+        </span>
+
+        <button
+          id="logoutButton"
+          class="logout-button"
+          type="button"
+        >
+          🚪 Sair
+        </button>
+
       </div>
 
     </header>
 
 
-    <!-- INFORMAÇÕES DO ZAK -->
+    <!-- BANNER -->
 
     <section class="zak-banner">
 
       <div>
 
-        <h2>
-          Eae! Eu sou o ZAK 😎
-        </h2>
+        <h1>
+          👋 E aí!
+        </h1>
 
         <p>
-          Seu assistente de IA para conversar,
-          pesquisar, programar, criar ideias,
-          jogos e muito mais.
+          Eu sou o ZAK. Bora conversar?
         </p>
 
       </div>
 
-      <div class="zak-status">
-        🧠 IA
+      <div class="creator-info">
+
+        <small>
+          Criado por
+        </small>
+
+        <strong>
+          IsaacGamer18Sonic
+        </strong>
+
       </div>
 
     </section>
 
 
-    <!-- ÁREA DE CHAT -->
+    <!-- ================================================= -->
+    <!-- ÁREA PRINCIPAL -->
+    <!-- ================================================= -->
 
     <section class="chat-container">
+
+      <!-- MENSAGENS -->
 
       <div
         id="messages"
         class="messages"
-        aria-live="polite"
       >
 
-        <!-- Mensagem inicial -->
+        <div class="message assistant-message">
 
-        <div class="message zak-message">
-
-          <div class="message-avatar">
-            🤖
+          <div class="message-name">
+            🤖 ZAK
           </div>
 
-          <div class="message-content">
-
-            <strong>ZAK</strong>
-
-            <p>
-              Eae! 😎 Eu sou o ZAK.
-              Pode mandar pergunta, ideia,
-              código, jogo ou qualquer coisa
-              que você queira conversar comigo.
-            </p>
-
+          <div class="message-text">
+            Fala! 😎 Eu sou o ZAK.
+            Agora você está logado.
+            O que vamos fazer?
           </div>
 
         </div>
@@ -183,129 +296,126 @@
       </div>
 
 
-      <!-- STATUS DA IA -->
+      <!-- DIGITANDO -->
 
       <div
         id="typing"
         class="typing hidden"
       >
-        <span></span>
-        <span></span>
-        <span></span>
-
         ZAK está pensando...
       </div>
 
 
-      <!-- FORMULÁRIO DO CHAT -->
+      <!-- ================================================= -->
+      <!-- MODOS -->
+      <!-- ================================================= -->
 
-      <form id="chat" class="chat-form">
+      <div class="modes">
 
-        <div class="input-area">
+        <button
+          class="mode-button active"
+          data-mode="normal"
+          type="button"
+        >
+          💬 Conversa
+        </button>
 
-          <input
-            id="input"
-            type="text"
-            placeholder="Digite sua mensagem para o ZAK..."
-            autocomplete="off"
-            maxlength="10000"
-          >
+        <button
+          class="mode-button"
+          data-mode="programacao"
+          type="button"
+        >
+          💻 Programação
+        </button>
 
-          <button
-            id="sendButton"
-            type="submit"
-            aria-label="Enviar mensagem"
-          >
-            ➤
-          </button>
+        <button
+          class="mode-button"
+          data-mode="jogos"
+          type="button"
+        >
+          🎮 Jogos
+        </button>
 
-        </div>
+        <button
+          class="mode-button"
+          data-mode="criatividade"
+          type="button"
+        >
+          🎨 Criatividade
+        </button>
+
+        <button
+          class="mode-button"
+          data-mode="pesquisa"
+          type="button"
+        >
+          🌐 Pesquisa
+        </button>
+
+      </div>
 
 
-        <!-- CONTROLES -->
+      <!-- ================================================= -->
+      <!-- FERRAMENTAS -->
+      <!-- ================================================= -->
 
-        <div class="chat-tools">
+      <div class="tools">
 
-          <button
-            type="button"
-            id="webSearchButton"
-            class="tool-button"
-          >
-            🌐 Pesquisa Web
-          </button>
+        <button
+          id="webSearchButton"
+          class="tool-button"
+          type="button"
+        >
+          🌐 Pesquisa na web
+        </button>
 
-          <button
-            type="button"
-            id="clearChat"
-            class="tool-button"
-          >
-            🗑️ Limpar conversa
-          </button>
+        <button
+          id="clearChat"
+          class="tool-button"
+          type="button"
+        >
+          🗑️ Limpar conversa
+        </button>
 
-        </div>
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- INPUT -->
+      <!-- ================================================= -->
+
+      <form id="chat">
+
+        <input
+          id="input"
+          type="text"
+          placeholder="Digite uma mensagem para o ZAK..."
+          autocomplete="off"
+          required
+        >
+
+        <button
+          type="submit"
+          class="send-button"
+        >
+          ➤
+        </button>
 
       </form>
 
     </section>
 
 
-    <!-- MODOS DO ZAK -->
-
-    <section class="modes">
-
-      <button
-        type="button"
-        class="mode-button"
-        data-mode="normal"
-      >
-        💬 Conversa
-      </button>
-
-      <button
-        type="button"
-        class="mode-button"
-        data-mode="programacao"
-      >
-        💻 Programação
-      </button>
-
-      <button
-        type="button"
-        class="mode-button"
-        data-mode="jogos"
-      >
-        🎮 Jogos
-      </button>
-
-      <button
-        type="button"
-        class="mode-button"
-        data-mode="criatividade"
-      >
-        🎨 Criatividade
-      </button>
-
-      <button
-        type="button"
-        class="mode-button"
-        data-mode="pesquisa"
-      >
-        🔎 Pesquisa
-      </button>
-
-    </section>
-
-
     <!-- RODAPÉ -->
 
-    <footer class="app-footer">
+    <footer>
 
       <span>
-        🤖 ZAK Super IA
+        GAMERULTRA AI
       </span>
 
       <span>
-        Criado por IsaacGamer18Sonic
+        ZAK • Super IA
       </span>
 
     </footer>
