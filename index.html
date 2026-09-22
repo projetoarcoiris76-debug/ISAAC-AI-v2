@@ -1,431 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="google-site-verification"
-    content="xQkwOdYagqO4pmK9tiXDwCjmHmyNWK3r9tm30TPpIDY"
-  >
-
-  <title>GAMERULTRA AI — ZAK</title>
-
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAK — ISAAC AI</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- FUNDO -->
-  <div class="grid"></div>
+    <!-- ================= LOGIN ================= -->
+    <section id="login-screen">
 
-  <!-- ================================================= -->
-  <!-- LOGIN -->
-  <!-- ================================================= -->
+        <div class="background-effects"></div>
 
-  <main id="login" class="screen">
+        <div class="login-container">
 
-    <section class="card login-card">
+            <!-- LOGO DOS DOIS RAIOS -->
+            <div class="zak-logo">
+                <span class="bolt blue-bolt">⚡</span>
+                <span class="bolt gold-bolt">⚡</span>
+            </div>
 
-      <div class="logo">
-        🤖
-      </div>
+            <h1 class="zak-title">ZAK</h1>
 
-      <h1>GAMERULTRA AI</h1>
+            <p class="subtitle">SUA IA, SEM LIMITES</p>
 
-      <p class="subtitle">
-        Entre para conversar com o ZAK
-      </p>
+            <div class="login-box">
 
-      <!-- LOGIN -->
-      <form id="loginForm">
+                <h2>FAÇA SEU LOGIN</h2>
 
-        <label for="loginUsername">
-          Usuário
-        </label>
+                <p class="login-description">
+                    Digite sua senha para acessar o ZAK
+                </p>
 
-        <input
-          id="loginUsername"
-          type="text"
-          placeholder="Digite seu usuário"
-          autocomplete="username"
-          required
-        >
+                <div class="password-container">
 
-        <label for="loginPassword">
-          Senha
-        </label>
+                    <span class="lock">🔒</span>
 
-        <div class="password-box">
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Digite sua senha..."
+                        autocomplete="off"
+                    >
 
-          <input
-            id="loginPassword"
-            type="password"
-            placeholder="Digite sua senha"
-            autocomplete="current-password"
-            required
-          >
+                    <button
+                        type="button"
+                        id="show-password"
+                        title="Mostrar senha"
+                    >
+                        👁️
+                    </button>
 
-          <button
-            type="button"
-            id="showLoginPassword"
-            class="password-button"
-          >
-            👁️
-          </button>
+                </div>
 
-        </div>
+                <button id="login-button">
+                    <span>⚡</span>
+                    ENTRAR
+                </button>
 
-        <button
-          type="submit"
-          class="primary-button"
-        >
-          🚀 ENTRAR
-        </button>
+                <p id="login-error"></p>
 
-      </form>
+                <p class="security-text">
+                    🔐 Acesso restrito. Apenas usuários autorizados.
+                </p>
 
-      <p id="loginError" class="error"></p>
-
-      <!-- IR PARA CADASTRO -->
-
-      <button
-        id="showRegister"
-        class="secondary-button"
-        type="button"
-      >
-        ✨ Criar uma conta
-      </button>
-
-    </section>
-
-  </main>
-
-
-  <!-- ================================================= -->
-  <!-- CADASTRO -->
-  <!-- ================================================= -->
-
-  <main id="register" class="screen hidden">
-
-    <section class="card login-card">
-
-      <div class="logo">
-        🧑‍💻
-      </div>
-
-      <h1>Criar conta</h1>
-
-      <p class="subtitle">
-        Crie sua conta para usar o ZAK
-      </p>
-
-      <form id="registerForm">
-
-        <label for="registerUsername">
-          Usuário
-        </label>
-
-        <input
-          id="registerUsername"
-          type="text"
-          placeholder="Escolha um usuário"
-          autocomplete="username"
-          required
-        >
-
-        <label for="registerPassword">
-          Senha
-        </label>
-
-        <div class="password-box">
-
-          <input
-            id="registerPassword"
-            type="password"
-            placeholder="Mínimo de 6 caracteres"
-            autocomplete="new-password"
-            required
-          >
-
-          <button
-            type="button"
-            id="showRegisterPassword"
-            class="password-button"
-          >
-            👁️
-          </button>
+            </div>
 
         </div>
-
-        <button
-          type="submit"
-          class="primary-button"
-        >
-          ✅ CRIAR CONTA
-        </button>
-
-      </form>
-
-      <p id="registerError" class="error"></p>
-
-      <p id="registerSuccess" class="success"></p>
-
-      <button
-        id="showLogin"
-        class="secondary-button"
-        type="button"
-      >
-        ← Voltar para login
-      </button>
-
-    </section>
-
-  </main>
-
-
-  <!-- ================================================= -->
-  <!-- APLICATIVO / ZAK -->
-  <!-- ================================================= -->
-
-  <main id="app" class="app hidden">
-
-    <!-- CABEÇALHO -->
-
-    <header class="topbar">
-
-      <div class="brand">
-
-        <div class="zak-avatar">
-          🤖
-        </div>
-
-        <div>
-
-          <h2>ZAK</h2>
-
-          <span>
-            🟢 Online
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="account">
-
-        <span id="loggedUser">
-          Usuário
-        </span>
-
-        <button
-          id="logoutButton"
-          class="logout-button"
-          type="button"
-        >
-          🚪 Sair
-        </button>
-
-      </div>
-
-    </header>
-
-
-    <!-- BANNER -->
-
-    <section class="zak-banner">
-
-      <div>
-
-        <h1>
-          👋 E aí!
-        </h1>
-
-        <p>
-          Eu sou o ZAK. Bora conversar?
-        </p>
-
-      </div>
-
-      <div class="creator-info">
-
-        <small>
-          Criado por
-        </small>
-
-        <strong>
-          IsaacGamer18Sonic
-        </strong>
-
-      </div>
 
     </section>
 
 
-    <!-- ================================================= -->
-    <!-- ÁREA PRINCIPAL -->
-    <!-- ================================================= -->
+    <!-- ================= PAINEL DO ZAK ================= -->
+    <main id="app">
 
-    <section class="chat-container">
+        <header class="app-header">
+            <div class="small-logo">
+                <span>⚡</span>
+                <span>⚡</span>
+            </div>
 
-      <!-- MENSAGENS -->
+            <div>
+                <h1>ZAK</h1>
+                <p>ISAAC AI</p>
+            </div>
+        </header>
 
-      <div
-        id="messages"
-        class="messages"
-      >
+        <section class="welcome">
+            <h2>Bem-vindo ao ZAK ⚡</h2>
+            <p>Seu acesso foi autorizado.</p>
+        </section>
 
-        <div class="message assistant-message">
+    </main>
 
-          <div class="message-name">
-            🤖 ZAK
-          </div>
-
-          <div class="message-text">
-            Fala! 😎 Eu sou o ZAK.
-            Agora você está logado.
-            O que vamos fazer?
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- DIGITANDO -->
-
-      <div
-        id="typing"
-        class="typing hidden"
-      >
-        ZAK está pensando...
-      </div>
-
-
-      <!-- ================================================= -->
-      <!-- MODOS -->
-      <!-- ================================================= -->
-
-      <div class="modes">
-
-        <button
-          class="mode-button active"
-          data-mode="normal"
-          type="button"
-        >
-          💬 Conversa
-        </button>
-
-        <button
-          class="mode-button"
-          data-mode="programacao"
-          type="button"
-        >
-          💻 Programação
-        </button>
-
-        <button
-          class="mode-button"
-          data-mode="jogos"
-          type="button"
-        >
-          🎮 Jogos
-        </button>
-
-        <button
-          class="mode-button"
-          data-mode="criatividade"
-          type="button"
-        >
-          🎨 Criatividade
-        </button>
-
-        <button
-          class="mode-button"
-          data-mode="pesquisa"
-          type="button"
-        >
-          🌐 Pesquisa
-        </button>
-
-      </div>
-
-
-      <!-- ================================================= -->
-      <!-- FERRAMENTAS -->
-      <!-- ================================================= -->
-
-      <div class="tools">
-
-        <button
-          id="webSearchButton"
-          class="tool-button"
-          type="button"
-        >
-          🌐 Pesquisa na web
-        </button>
-
-        <button
-          id="clearChat"
-          class="tool-button"
-          type="button"
-        >
-          🗑️ Limpar conversa
-        </button>
-
-      </div>
-
-
-      <!-- ================================================= -->
-      <!-- INPUT -->
-      <!-- ================================================= -->
-
-      <form id="chat">
-
-        <input
-          id="input"
-          type="text"
-          placeholder="Digite uma mensagem para o ZAK..."
-          autocomplete="off"
-          required
-        >
-
-        <button
-          type="submit"
-          class="send-button"
-        >
-          ➤
-        </button>
-
-      </form>
-
-    </section>
-
-
-    <!-- RODAPÉ -->
-
-    <footer>
-
-      <span>
-        GAMERULTRA AI
-      </span>
-
-      <span>
-        ZAK • Super IA
-      </span>
-
-    </footer>
-
-  </main>
-
-
-  <!-- JAVASCRIPT -->
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 
 </body>
 </html>
