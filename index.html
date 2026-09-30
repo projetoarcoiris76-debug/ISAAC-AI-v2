@@ -1,101 +1,274 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>ZAK — ISAAC AI</title>
+
+    <meta
+        name="description"
+        content="ZAK — Sua IA, sem limites."
+    >
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ================= LOGIN ================= -->
-    <section id="login-screen">
+    <!-- ==================================================
+         TELA DE LOGIN
+    =================================================== -->
 
-        <div class="background-effects"></div>
+    <div
+        class="login-screen"
+        id="loginScreen"
+    >
 
-        <div class="login-container">
+        <div class="login-box">
 
-            <!-- LOGO DOS DOIS RAIOS -->
-            <div class="zak-logo">
-                <span class="bolt blue-bolt">⚡</span>
-                <span class="bolt gold-bolt">⚡</span>
+            <!-- LOGO -->
+            <div class="login-logo">
+
+                <h1>ZAK</h1>
+
+                <p>SUA IA, SEM LIMITES</p>
+
             </div>
 
-            <h1 class="zak-title">ZAK</h1>
 
-            <p class="subtitle">SUA IA, SEM LIMITES</p>
-
-            <div class="login-box">
+            <!-- TÍTULO -->
+            <div class="login-title">
 
                 <h2>FAÇA SEU LOGIN</h2>
 
-                <p class="login-description">
+                <p>
                     Digite sua senha para acessar o ZAK
                 </p>
 
-                <div class="password-container">
+            </div>
 
-                    <span class="lock">🔒</span>
 
-                    <input
-                        type="password"
-                        id="login-password"
-                        placeholder="Digite sua senha..."
-                        autocomplete="off"
-                    >
+            <!-- SENHA -->
+            <div class="password-container">
 
-                    <button
-                        type="button"
-                        id="show-password"
-                        title="Mostrar senha"
-                    >
-                        👁️
-                    </button>
+                <span class="lock-icon">
+                    🔒
+                </span>
 
-                </div>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Digite sua senha..."
+                    autocomplete="current-password"
+                >
 
-                <button id="login-button">
-                    <span>⚡</span>
-                    ENTRAR
+                <button
+                    type="button"
+                    id="togglePassword"
+                    aria-label="Mostrar senha"
+                >
+                    👁️
                 </button>
 
-                <p id="login-error"></p>
+            </div>
 
-                <p class="security-text">
-                    🔐 Acesso restrito. Apenas usuários autorizados.
-                </p>
+
+            <!-- BOTÃO ENTRAR -->
+            <button
+                class="login-button"
+                id="loginBtn"
+                type="button"
+            >
+                ⚡ ENTRAR
+            </button>
+
+
+            <!-- ERRO -->
+            <div
+                class="login-error"
+                id="loginError"
+            ></div>
+
+
+            <!-- AVISO -->
+            <div class="login-warning">
+
+                🔒 Acesso restrito.
+                Apenas usuários autorizados.
 
             </div>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- ================= PAINEL DO ZAK ================= -->
-    <main id="app">
+    <!-- ==================================================
+         PAINEL DO ZAK
+         FICA ESCONDIDO ATÉ O LOGIN
+    =================================================== -->
 
+    <main
+        class="app"
+        id="app"
+        style="display: none;"
+    >
+
+        <!-- CABEÇALHO -->
         <header class="app-header">
-            <div class="small-logo">
-                <span>⚡</span>
-                <span>⚡</span>
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h1>ZAK</h1>
+
+                    <span>
+                        ISAAC AI
+                    </span>
+
+                </div>
+
             </div>
 
-            <div>
-                <h1>ZAK</h1>
-                <p>ISAAC AI</p>
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                ONLINE
+
             </div>
+
         </header>
 
-        <section class="welcome">
-            <h2>Bem-vindo ao ZAK ⚡</h2>
-            <p>Seu acesso foi autorizado.</p>
+
+        <!-- ==================================================
+             ÁREA PRINCIPAL
+        =================================================== -->
+
+        <section class="chat-container">
+
+            <!-- MENSAGEM INICIAL -->
+            <div
+                class="chat-messages"
+                id="chatMessages"
+            >
+
+                <div class="message bot-message">
+
+                    <div class="message-avatar">
+                        ⚡
+                    </div>
+
+                    <div class="message-content">
+
+                        <strong>ZAK</strong>
+
+                        <p>
+                            Sistema iniciado. ⚡
+                            <br>
+                            Fala aí! O que vamos fazer hoje?
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 ÁREA DE DIGITAÇÃO
+            =================================================== -->
+
+            <div class="chat-input-area">
+
+                <textarea
+                    id="userInput"
+                    placeholder="Digite sua mensagem..."
+                    rows="1"
+                ></textarea>
+
+                <button
+                    id="sendBtn"
+                    type="button"
+                    aria-label="Enviar mensagem"
+                >
+                    ⚡
+                </button>
+
+            </div>
+
+
+            <!-- OPÇÕES -->
+            <div class="quick-options">
+
+                <button
+                    type="button"
+                    data-message="Quais coisas você consegue fazer?"
+                >
+                    🧠 O que você faz?
+                </button>
+
+                <button
+                    type="button"
+                    data-message="Quero criar um jogo."
+                >
+                    🎮 Criar jogo
+                </button>
+
+                <button
+                    type="button"
+                    data-message="Quero criar uma IA."
+                >
+                    🤖 Criar IA
+                </button>
+
+                <button
+                    type="button"
+                    data-message="Quero ver as opções."
+                >
+                    ⚙️ Opções
+                </button>
+
+            </div>
+
         </section>
 
+
+        <!-- RODAPÉ -->
+        <footer class="app-footer">
+
+            <span>
+                ZAK — ISAAC AI
+            </span>
+
+            <span>
+                Sistema protegido ⚡
+            </span>
+
+        </footer>
+
     </main>
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
 
     <script src="app.js"></script>
 
 </body>
+
 </html>
