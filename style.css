@@ -1,7 +1,7 @@
-/* =========================================
-   ZAK — TELA DE LOGIN
-   ISAAC AI
-========================================= */
+/* =========================================================
+   ZAK — ISAAC AI
+   HUB DE ENTRADA
+   ========================================================= */
 
 * {
     margin: 0;
@@ -16,247 +16,184 @@ body {
 }
 
 body {
-    margin: 0;
-    width: 100%;
-    min-height: 100vh;
-
     font-family: Arial, Helvetica, sans-serif;
 
     background:
-        linear-gradient(
-            rgba(1, 5, 15, 0.25),
-            rgba(1, 5, 15, 0.25)
-        ),
-        url("zak-login-bg.png") center center / cover no-repeat fixed;
+        #02040a url("zak-hub.png")
+        center center
+        / cover
+        no-repeat
+        fixed;
 
-    color: white;
+    color: #ffffff;
+
     overflow: hidden;
 }
 
-/* Escurece um pouco a imagem para o login ficar legível */
+
+/* =========================================================
+   CAMADA ESCURA
+   ========================================================= */
+
 body::before {
     content: "";
+
     position: fixed;
     inset: 0;
+
     background:
-        linear-gradient(
-            180deg,
-            rgba(0, 4, 12, 0.25),
-            rgba(0, 5, 15, 0.55)
+        radial-gradient(
+            circle at center,
+            transparent 20%,
+            rgba(0, 0, 0, 0.25) 65%,
+            rgba(0, 0, 0, 0.55) 100%
         );
-    z-index: -1;
+
+    pointer-events: none;
+
+    z-index: 0;
 }
 
-/* =========================================
-   ÁREA DO LOGIN
-========================================= */
+
+/* =========================================================
+   TELA DE LOGIN
+   ========================================================= */
 
 .login-screen {
+    position: fixed;
+
+    inset: 0;
+
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
-    padding: 30px;
+    z-index: 10;
+
+    padding: 20px;
 }
 
-/* =========================================
-   PAINEL
-========================================= */
+
+/* =========================================================
+   PAINEL TRANSPARENTE
+   A IMAGEM JÁ POSSUI O VISUAL DO HUB.
+   O HTML FICA POR CIMA PARA DEIXAR OS CONTROLES FUNCIONAIS.
+   ========================================================= */
 
 .login-box {
     position: relative;
 
-    width: min(680px, 95vw);
-    padding: 42px 48px 35px;
+    width: min(700px, 90vw);
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(5, 18, 43, 0.94),
-            rgba(2, 8, 22, 0.96)
-        );
+    height: 410px;
 
-    border: 1px solid rgba(0, 153, 255, 0.9);
-    border-radius: 24px;
+    padding: 0;
 
-    box-shadow:
-        0 0 20px rgba(0, 153, 255, 0.35),
-        0 0 55px rgba(0, 153, 255, 0.15),
-        inset 0 0 35px rgba(0, 110, 255, 0.08);
+    background: transparent;
 
-    backdrop-filter: blur(12px);
+    border: none;
 
-    overflow: hidden;
+    box-shadow: none;
+
+    backdrop-filter: none;
+
+    overflow: visible;
 }
 
-/* Linha azul em cima */
-.login-box::before {
-    content: "";
 
-    position: absolute;
-    top: 0;
-    left: 8%;
+/* =========================================================
+   ESCONDE OS TEXTOS QUE JÁ ESTÃO NA IMAGEM
+   ========================================================= */
 
-    width: 84%;
-    height: 3px;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #008cff,
-        #ffffff,
-        #ffd21c,
-        transparent
-    );
-
-    box-shadow:
-        0 0 12px #008cff,
-        0 0 18px #ffd21c;
+.login-logo,
+.login-title,
+.login-warning {
+    display: none;
 }
 
-/* Brilho azul */
-.login-box::after {
-    content: "";
 
-    position: absolute;
-
-    width: 180px;
-    height: 180px;
-
-    left: -100px;
-    bottom: -100px;
-
-    background: #008cff;
-
-    filter: blur(100px);
-    opacity: 0.15;
-}
-
-/* =========================================
-   LOGO / TÍTULO
-========================================= */
-
-.login-logo {
-    text-align: center;
-    margin-bottom: 28px;
-}
-
-.login-logo h1 {
-    font-size: clamp(42px, 6vw, 70px);
-
-    font-weight: 900;
-    letter-spacing: 10px;
-
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #9eeaff 35%,
-        #54bfff 60%,
-        #ffffff 100%
-    );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-
-    text-shadow:
-        0 0 10px rgba(0, 174, 255, 0.8),
-        0 0 30px rgba(0, 140, 255, 0.35);
-}
-
-.login-logo p {
-    margin-top: 5px;
-
-    font-size: 12px;
-    letter-spacing: 7px;
-
-    color: #a8cce8;
-
-    text-transform: uppercase;
-}
-
-/* =========================================
-   TÍTULO LOGIN
-========================================= */
-
-.login-title {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.login-title h2 {
-    font-size: 28px;
-    font-weight: 800;
-
-    color: #ffffff;
-
-    text-shadow:
-        0 0 10px rgba(255, 255, 255, 0.25);
-}
-
-.login-title p {
-    margin-top: 8px;
-
-    color: #8da4c2;
-    font-size: 15px;
-}
-
-/* =========================================
-   CAMPO DA SENHA
-========================================= */
+/* =========================================================
+   CAMPO DE SENHA
+   ========================================================= */
 
 .password-container {
-    position: relative;
+    position: absolute;
+
+    left: 50%;
+
+    top: 57%;
+
+    transform: translateX(-50%);
+
+    width: 550px;
+    max-width: 78vw;
+
+    height: 55px;
 
     display: flex;
+
     align-items: center;
 
-    width: 100%;
-    height: 58px;
+    background: rgba(2, 10, 25, 0.72);
 
-    margin-bottom: 20px;
+    border: 1px solid rgba(0, 153, 255, 0.95);
 
-    background:
-        rgba(2, 12, 30, 0.85);
-
-    border: 1px solid #008cff;
-    border-radius: 14px;
+    border-radius: 12px;
 
     box-shadow:
-        inset 0 0 15px rgba(0, 132, 255, 0.08),
-        0 0 12px rgba(0, 132, 255, 0.12);
+        0 0 10px rgba(0, 132, 255, 0.45),
+        inset 0 0 12px rgba(0, 132, 255, 0.08);
 
     overflow: hidden;
 
     transition: 0.25s ease;
 }
 
+
+/* =========================================================
+   FOCO NA SENHA
+   ========================================================= */
+
 .password-container:focus-within {
     border-color: #ffd21c;
 
     box-shadow:
-        0 0 12px rgba(0, 153, 255, 0.5),
-        0 0 25px rgba(255, 210, 28, 0.15);
+        0 0 12px rgba(0, 153, 255, 0.7),
+        0 0 25px rgba(255, 210, 28, 0.3),
+        inset 0 0 15px rgba(255, 210, 28, 0.06);
 }
 
-.password-container span,
-.password-container .lock-icon {
+
+/* =========================================================
+   CADEADO
+   ========================================================= */
+
+.lock-icon {
     width: 55px;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
-    font-size: 18px;
+    font-size: 17px;
+
+    flex-shrink: 0;
 }
 
-/* Campo */
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
 .password-container input {
     flex: 1;
 
+    width: 100%;
     height: 100%;
 
     border: none;
@@ -267,53 +204,75 @@ body::before {
     color: white;
 
     font-size: 16px;
+
+    padding: 0 10px;
 }
 
 .password-container input::placeholder {
-    color: #7287a5;
+    color: #91a3bb;
 }
 
-/* Botão olho */
+
+/* =========================================================
+   BOTÃO MOSTRAR SENHA
+   ========================================================= */
+
 .password-container button {
     width: 58px;
     height: 100%;
 
     border: none;
-    border-left: 1px solid rgba(0, 153, 255, 0.45);
 
-    background: transparent;
+    border-left:
+        1px solid rgba(0, 153, 255, 0.45);
 
-    color: #dceaff;
+    background: rgba(0, 10, 25, 0.35);
+
+    color: white;
 
     cursor: pointer;
 
-    font-size: 18px;
+    font-size: 17px;
 
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
 
 .password-container button:hover {
     color: #ffd21c;
 
-    background: rgba(255, 210, 28, 0.08);
+    background:
+        rgba(255, 210, 28, 0.08);
 }
 
-/* =========================================
+
+/* =========================================================
    BOTÃO ENTRAR
-========================================= */
+   ========================================================= */
 
 .login-button {
-    width: 100%;
+    position: absolute;
+
+    left: 50%;
+
+    top: 76%;
+
+    transform: translateX(-50%);
+
+    width: 550px;
+    max-width: 78vw;
+
     height: 58px;
 
     border: none;
-    border-radius: 14px;
+
+    border-radius: 13px;
 
     cursor: pointer;
 
     color: white;
 
     font-size: 18px;
+
     font-weight: 800;
 
     letter-spacing: 1px;
@@ -321,85 +280,480 @@ body::before {
     background:
         linear-gradient(
             90deg,
-            #008cff 0%,
-            #006ee8 45%,
-            #ffd21c 100%
+            rgba(0, 95, 255, 0.88),
+            rgba(0, 145, 255, 0.92),
+            rgba(255, 210, 28, 0.95)
         );
 
     box-shadow:
-        0 0 18px rgba(0, 140, 255, 0.4),
-        0 0 25px rgba(255, 210, 28, 0.2);
+        0 0 15px rgba(0, 130, 255, 0.45),
+        0 0 22px rgba(255, 210, 28, 0.25);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease,
-        filter 0.2s ease;
+        filter 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .login-button:hover {
-    transform: translateY(-2px);
+    transform: translateX(-50%) translateY(-2px);
 
-    filter: brightness(1.12);
+    filter: brightness(1.15);
 
     box-shadow:
-        0 0 25px rgba(0, 153, 255, 0.7),
-        0 0 35px rgba(255, 210, 28, 0.35);
+        0 0 25px rgba(0, 145, 255, 0.7),
+        0 0 35px rgba(255, 210, 28, 0.4);
 }
 
 .login-button:active {
-    transform: translateY(1px);
+    transform: translateX(-50%) translateY(1px);
 }
 
-/* =========================================
-   AVISO
-========================================= */
 
-.login-warning {
-    margin-top: 22px;
-
-    text-align: center;
-
-    color: #7389a5;
-
-    font-size: 12px;
-}
-
-/* =========================================
-   ERRO
-========================================= */
+/* =========================================================
+   ERRO DE LOGIN
+   ========================================================= */
 
 .login-error {
-    margin-top: 12px;
+    position: absolute;
+
+    left: 50%;
+
+    top: 91%;
+
+    transform: translateX(-50%);
+
+    width: 550px;
+    max-width: 78vw;
 
     text-align: center;
 
-    color: #ff6b6b;
+    color: #ff5757;
 
     font-size: 13px;
 
-    text-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+    text-shadow:
+        0 0 8px rgba(255, 0, 0, 0.6);
+
+    pointer-events: none;
 }
 
-/* =========================================
-   RESPONSIVO
-========================================= */
+
+/* =========================================================
+   PAINEL DO ZAK
+   ========================================================= */
+
+.app {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(0, 100, 255, 0.08),
+            rgba(0, 0, 0, 0.94)
+        );
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   ESCONDER PAINEL ANTES DO LOGIN
+   ========================================================= */
+
+.app.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.app-header {
+    height: 75px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    background:
+        rgba(2, 8, 22, 0.88);
+
+    border-bottom:
+        1px solid rgba(0, 140, 255, 0.35);
+
+    box-shadow:
+        0 0 20px rgba(0, 110, 255, 0.12);
+}
+
+
+/* =========================================================
+   MARCA
+   ========================================================= */
+
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #008cff,
+            #ffd21c
+        );
+
+    box-shadow:
+        0 0 15px rgba(0, 140, 255, 0.5);
+}
+
+.brand h1 {
+    font-size: 23px;
+
+    letter-spacing: 3px;
+}
+
+.brand span {
+    font-size: 11px;
+
+    color: #82bfff;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #9fb6cf;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #20ff8a;
+
+    box-shadow:
+        0 0 10px #20ff8a;
+}
+
+
+/* =========================================================
+   CHAT
+   ========================================================= */
+
+.chat-container {
+    flex: 1;
+
+    width: min(1000px, 94vw);
+
+    margin: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 25px 0;
+}
+
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
+
+.chat-messages {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px;
+}
+
+.message {
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.message-avatar {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #008cff,
+            #ffd21c
+        );
+
+    flex-shrink: 0;
+}
+
+.message-content {
+    padding: 12px 16px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(5, 18, 40, 0.85);
+
+    border:
+        1px solid rgba(0, 140, 255, 0.25);
+}
+
+.message-content strong {
+    color: #54bfff;
+}
+
+.message-content p {
+    margin-top: 5px;
+
+    color: #d6e4f2;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ÁREA DE DIGITAÇÃO
+   ========================================================= */
+
+.chat-input-area {
+    display: flex;
+
+    gap: 10px;
+
+    padding: 10px;
+}
+
+.chat-input-area textarea {
+    flex: 1;
+
+    resize: none;
+
+    min-height: 55px;
+
+    max-height: 140px;
+
+    padding: 16px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid rgba(0, 140, 255, 0.5);
+
+    outline: none;
+
+    background:
+        rgba(2, 10, 25, 0.92);
+
+    color: white;
+
+    font-size: 15px;
+}
+
+.chat-input-area textarea:focus {
+    border-color: #008cff;
+
+    box-shadow:
+        0 0 15px rgba(0, 140, 255, 0.25);
+}
+
+.chat-input-area button {
+    width: 60px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #008cff,
+            #ffd21c
+        );
+
+    color: white;
+
+    font-size: 20px;
+
+    box-shadow:
+        0 0 15px rgba(0, 140, 255, 0.3);
+}
+
+
+/* =========================================================
+   OPÇÕES
+   ========================================================= */
+
+.quick-options {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 10px;
+}
+
+.quick-options button {
+    padding: 10px 15px;
+
+    border:
+        1px solid rgba(0, 140, 255, 0.4);
+
+    border-radius: 10px;
+
+    background:
+        rgba(3, 14, 32, 0.8);
+
+    color: #bcd3eb;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.quick-options button:hover {
+    color: white;
+
+    border-color: #008cff;
+
+    box-shadow:
+        0 0 12px rgba(0, 140, 255, 0.25);
+}
+
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+.app-footer {
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #647d99;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   RESPONSIVO — CELULAR
+   ========================================================= */
 
 @media (max-width: 700px) {
 
-    .login-screen {
-        padding: 15px;
+    .login-box {
+        width: 100%;
+
+        height: 390px;
+    }
+
+    .password-container,
+    .login-button,
+    .login-error {
+        max-width: 82vw;
+    }
+
+    .password-container {
+        top: 56%;
+    }
+
+    .login-button {
+        top: 75%;
+    }
+
+    .app-header {
+        padding: 0 15px;
+    }
+
+    .chat-container {
+        width: 100%;
+
+        padding: 10px;
+    }
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+   ========================================================= */
+
+@media (max-height: 700px) {
+
+    .password-container {
+        top: 55%;
+    }
+
+    .login-button {
+        top: 74%;
     }
 
     .login-box {
-        padding: 32px 22px 28px;
-    }
-
-    .login-logo h1 {
-        font-size: 45px;
-        letter-spacing: 7px;
-    }
-
-    .login-title h2 {
-        font-size: 23px;
+        transform: scale(0.9);
     }
 }
